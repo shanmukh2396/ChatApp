@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Reset & Defaults ─────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    @apply h-full;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply h-full bg-surface text-slate-100 font-sans antialiased;
+    overflow: hidden; /* prevent double scrollbar — inner panels scroll */
+  }
+
+  #root {
+    @apply h-full;
+  }
+
+  /* Scrollbar styling for chat panels */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-600 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-500;
+  }
+}
+
+/* ─── Reusable Component Classes ─────────────────────────────────────────────── */
+@layer components {
+
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-primary-600 hover:bg-primary-700 active:bg-primary-800
+           text-white font-medium text-sm
+           px-4 py-2.5 rounded-xl
+           transition-colors duration-150
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-surface
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           text-slate-400 hover:text-slate-100 hover:bg-surface-input
+           font-medium text-sm
+           px-3 py-2 rounded-xl
+           transition-colors duration-150
+           focus:outline-none focus:ring-2 focus:ring-primary-500;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2
+           bg-red-600 hover:bg-red-700
+           text-white font-medium text-sm
+           px-4 py-2.5 rounded-xl
+           transition-colors duration-150
+           focus:outline-none focus:ring-2 focus:ring-red-500;
+  }
+
+  /* Form Inputs */
+  .input {
+    @apply w-full bg-surface-input text-slate-100 placeholder-slate-400
+           border border-surface-border rounded-xl
+           px-4 py-2.5 text-sm
+           transition-colors duration-150
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-surface-card rounded-2xl border border-surface-border;
+  }
+
+  /* Avatar */
+  .avatar {
+    @apply rounded-full object-cover shrink-0 bg-surface-input;
+  }
+
+  /* Online dot indicator */
+  .online-dot {
+    @apply absolute bottom-0 right-0 w-2.5 h-2.5
+           bg-green-400 rounded-full
+           border-2 border-surface-card;
+  }
+
+  /* Conversation item hover state */
+  .conv-item {
+    @apply flex items-center gap-3 p-3 rounded-xl cursor-pointer
+           transition-colors duration-150
+           hover:bg-surface-hover;
+  }
+  .conv-item.active {
+    @apply bg-surface-input;
+  }
+
+  /* Message bubbles */
+  .msg-bubble-self {
+    @apply bg-primary-600 text-white rounded-2xl rounded-br-sm
+           px-4 py-2.5 max-w-xs sm:max-w-sm lg:max-w-md
+           text-sm break-words;
+  }
+
+  .msg-bubble-other {
+    @apply bg-surface-card text-slate-100 rounded-2xl rounded-bl-sm
+           px-4 py-2.5 max-w-xs sm:max-w-sm lg:max-w-md
+           text-sm break-words border border-surface-border;
+  }
+
+  /* Typing dots */
+  .typing-dot {
+    @apply w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce-dot;
+  }
+
+  /* Unread badge */
+  .badge {
+    @apply inline-flex items-center justify-center
+           min-w-[1.25rem] h-5 px-1
+           bg-primary-600 text-white
+           text-[10px] font-bold rounded-full;
+  }
+}
