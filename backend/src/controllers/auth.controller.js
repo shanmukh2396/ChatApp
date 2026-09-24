@@ -40,7 +40,7 @@ const register = async (req, res, next) => {
     });
 
     // Set HTTP-only auth cookie
-    generateAuthTokenAndSetCookie(res, user._id);
+    const token = generateAuthTokenAndSetCookie(res, user._id);
 
     return sendSuccess(res, 201, 'Account created successfully!', {
       _id: user._id,
@@ -49,6 +49,7 @@ const register = async (req, res, next) => {
       avatar: user.avatar,
       isOnline: user.isOnline,
       createdAt: user.createdAt,
+      token,
     });
   } catch (error) {
     next(error);
@@ -88,7 +89,7 @@ const login = async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     // Set HTTP-only auth cookie
-    generateAuthTokenAndSetCookie(res, user._id);
+    const token = generateAuthTokenAndSetCookie(res, user._id);
 
     return sendSuccess(res, 200, 'Login successful!', {
       _id: user._id,
@@ -97,6 +98,7 @@ const login = async (req, res, next) => {
       avatar: user.avatar,
       isOnline: user.isOnline,
       createdAt: user.createdAt,
+      token,
     });
   } catch (error) {
     next(error);

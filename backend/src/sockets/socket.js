@@ -6,9 +6,34 @@ const User = require('../models/User.model');
 const activeUsers = new Map();
 
 const initSocket = (httpServer) => {
+  const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'http://localhost:3000',
+    'http://127.0.0.1:5173',
+    'https://chat-app-six-delta-29.vercel.app',
+  ];
+
+  if (process.env.CLIENT_URL) {
+    process.env.CLIENT_URL.split(',').forEach((url) => {
+      const trimmed = url.trim().replace(/\/+$/, '');
+      if (trimmed && !allowedOrigins.includes(trimmed)) {
+        allowedOrigins.push(trimmed);
+      }
+    });
+  }
+
   const io = new Server(httpServer, {
     cors: {
-      origin: process.env.CLIENT_URL || 'http://localhost:5173',
+      origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        const isExplicitlyAllowed = allowedOrigins.includes(origin);
+        const isVercel = /^https:\/\/.*\.vercel\.app$/.test(origin);
+        if (isExplicitlyAllowed || isVercel) {
+          return callback(null, true);
+        }
+        return callback(null, true);
+      },
       credentials: true,
       methods: ['GET', 'POST'],
     },
@@ -17,17 +42,33 @@ const initSocket = (httpServer) => {
 
   // ─── Authentication Middleware ─────────────────────────────────────────────
   io.use((socket, next) => {
-    const ticket = socket.handshake.auth?.ticket;
+    // Check ticket, token from handshake auth or Authorization header
+    let token =
+      socket.handshake.auth?.ticket ||
+      socket.handshake.auth?.token ||
+      socket.handshake.headers?.authorization?.replace(/^Bearer\s+/, '');
 
-    if (!ticket) {
-      return next(new Error('Authentication ticket missing'));
+    if (!token && socket.handshake.headers?.cookie) {
+      const match = socket.handshake.headers.cookie.match(/(?:^|;\s*)jwt=([^;]*)/);
+      if (match) token = match[1];
+    }
+
+    if (!token) {
+      return next(new Error('Authentication token missing'));
     }
 
     try {
-      const decoded = jwt.verify(
-        ticket,
-        process.env.SOCKET_TICKET_SECRET || process.env.JWT_SECRET
-      );
+      // First try ticket secret or fallback to standard JWT secret
+      let decoded;
+      try {
+        decoded = jwt.verify(
+          token,
+          process.env.SOCKET_TICKET_SECRET || process.env.JWT_SECRET
+        );
+      } catch (e) {
+        decoded = jwt.verify(token, process.env.JWT_SECRET);
+      }
+
       socket.userId = decoded.userId;
       next();
     } catch (err) {

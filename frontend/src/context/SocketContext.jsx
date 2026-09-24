@@ -25,17 +25,25 @@ export const SocketProvider = ({ children }) => {
         return;
       }
 
-      // Obtain short-lived socket ticket from backend
+      // Obtain socket ticket or fallback auth token
       const ticket = await getSocketTicket();
       if (!ticket || !active) return;
 
-      const socketUrl = import.meta.env.VITE_SOCKET_URL || window.location.origin;
+      const rawSocketUrl =
+        import.meta.env.VITE_SOCKET_URL ||
+        (import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '') : null) ||
+        (import.meta.env.PROD ? 'https://chatapp-813y.onrender.com' : 'http://localhost:5000');
+
+      const socketUrl = rawSocketUrl.replace(/\/+$/, '');
+      const storedToken = localStorage.getItem('chat_token');
 
       const newSocket = io(socketUrl, {
-        auth: { ticket },
+        auth: { ticket, token: storedToken },
         withCredentials: true,
-        reconnectionAttempts: 10,
+        transports: ['websocket', 'polling'], // Fallback transport for resilient connections
+        reconnectionAttempts: 15,
         reconnectionDelay: 1000,
+        timeout: 20000,
       });
 
       newSocket.on('connect', () => {
@@ -48,11 +56,11 @@ export const SocketProvider = ({ children }) => {
 
       newSocket.on('connect_error', async (err) => {
         console.warn('Socket connection error:', err.message);
-        // Refresh ticket on auth failure
-        if (err.message.includes('ticket') || err.message.includes('Authentication')) {
+        // Refresh ticket / token on auth failure
+        if (err.message.includes('ticket') || err.message.includes('Authentication') || err.message.includes('token')) {
           const freshTicket = await getSocketTicket();
           if (freshTicket) {
-            newSocket.auth = { ticket: freshTicket };
+            newSocket.auth = { ticket: freshTicket, token: localStorage.getItem('chat_token') };
             newSocket.connect();
           }
         }

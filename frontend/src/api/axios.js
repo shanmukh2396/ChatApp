@@ -1,24 +1,40 @@
 import axios from 'axios';
 
 /**
- * Axios instance pre-configured for the MERN Chat API.
- *
- * - baseURL: uses the Vite proxy in dev (/api → localhost:5000/api)
- *            and VITE_API_BASE_URL in production.
- * - withCredentials: true — sends HTTP-only auth cookie on every request.
- * - 10s timeout to avoid hanging requests.
- *
- * The response interceptor handles 401s globally (e.g. expired cookie)
- * by redirecting to the login page.
+ * Determine baseURL:
+ * - Reads VITE_API_URL or VITE_API_BASE_URL
+ * - In production: defaults to the deployed Render backend API ('https://chatapp-813y.onrender.com/api')
+ * - In development: defaults to '/api' (proxied via Vite)
  */
+const rawBaseURL =
+  import.meta.env.VITE_API_URL ||
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.PROD ? 'https://chatapp-813y.onrender.com/api' : '/api');
+
+// Strip any trailing slashes
+const normalizedBaseURL = rawBaseURL.replace(/\/+$/, '');
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+  baseURL: normalizedBaseURL,
   withCredentials: true,
-  timeout: 10000,
+  timeout: 15000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+// ─── Request Interceptor ─────────────────────────────────────────────────────
+api.interceptors.request.use(
+  (config) => {
+    // Attach JWT token from localStorage if available (supports cross-domain deployments)
+    const token = localStorage.getItem('chat_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 // ─── Response Interceptor ────────────────────────────────────────────────────
 api.interceptors.response.use(
@@ -26,9 +42,11 @@ api.interceptors.response.use(
   (error) => {
     const status = error.response?.status;
 
-    // If the auth cookie expired or is invalid, redirect to login
+    // If unauthorized / token expired, clear local storage and redirect to login
     if (status === 401) {
-      // Avoid redirect loop when already on the auth pages
+      localStorage.removeItem('chat_token');
+      localStorage.removeItem('chat_user');
+
       const isAuthPage =
         window.location.pathname === '/login' ||
         window.location.pathname === '/register';

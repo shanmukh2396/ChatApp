@@ -15,8 +15,8 @@ const generateAuthTokenAndSetCookie = (res, userId) => {
 
   res.cookie('jwt', token, {
     httpOnly: true, // Prevents XSS attacks (JS cannot read this cookie)
-    secure: isProduction, // HTTPS only in production
-    sameSite: isProduction ? 'strict' : 'lax', // CSRF protection
+    secure: isProduction, // HTTPS only in production (required for sameSite: 'none')
+    sameSite: isProduction ? 'none' : 'lax', // 'none' required for cross-domain Vercel <-> Render
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
     path: '/',
   });
@@ -49,7 +49,7 @@ const clearAuthCookie = (res) => {
   res.cookie('jwt', '', {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? 'strict' : 'lax',
+    sameSite: isProduction ? 'none' : 'lax',
     expires: new Date(0),
     path: '/',
   });
