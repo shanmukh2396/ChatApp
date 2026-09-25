@@ -2,8 +2,10 @@ import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useChat } from '../../context/ChatContext';
 import { useSocket } from '../../context/SocketContext';
+import { useCall } from '../../context/CallContext';
 import { formatLastSeen } from '../../utils/formatDate';
-import { ArrowLeft, Info, Users, Shield } from 'lucide-react';
+import { ArrowLeft, Info, Users, Phone, Video } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const ChatHeader = () => {
   const { user } = useAuth();
@@ -14,6 +16,7 @@ const ChatHeader = () => {
     typingMap,
   } = useChat();
   const { onlineUsers } = useSocket();
+  const { startCall, callStatus } = useCall();
 
   if (!activeConversation) return null;
 
@@ -29,14 +32,32 @@ const ChatHeader = () => {
   const isRecipientOnline = recipient ? onlineUsers.has(recipient._id) : false;
   const activeTyping = typingMap[activeConversation._id];
 
+  const handleVoiceCall = () => {
+    if (isGroup) return;
+    if (!recipient) return;
+    if (callStatus !== 'idle') {
+      return toast.error('You are already on an active call.');
+    }
+    startCall(recipient, 'voice');
+  };
+
+  const handleVideoCall = () => {
+    if (isGroup) return;
+    if (!recipient) return;
+    if (callStatus !== 'idle') {
+      return toast.error('You are already on an active call.');
+    }
+    startCall(recipient, 'video');
+  };
+
   return (
-    <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-[#202235] bg-[#171827] z-10 shrink-0">
+    <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-[#204e35] bg-[#0f2d1c] z-10 shrink-0">
       {/* Left: Mobile Back Button + Avatar + Name & Status */}
       <div className="flex items-center gap-3.5 min-w-0">
         {/* Mobile Back to Conversation List Button */}
         <button
           onClick={() => selectConversation(null)}
-          className="md:hidden p-2 rounded-xl text-[#9293A5] hover:text-white hover:bg-[#202235] transition-colors -ml-1.5"
+          className="md:hidden p-2 rounded-xl text-[#9bb8a8] hover:text-white hover:bg-[#18422b] transition-colors -ml-1.5"
           title="Back to conversations"
         >
           <ArrowLeft className="w-5 h-5" />
@@ -51,10 +72,10 @@ const ChatHeader = () => {
                 : recipient?.avatar || 'https://ui-avatars.com/api/?name=Chat'
             }
             alt={isGroup ? activeConversation.name : recipient?.name}
-            className="w-10 h-10 rounded-2xl object-cover border-2 border-[#202235]"
+            className="w-10 h-10 rounded-2xl object-cover border-2 border-[#204e35]"
           />
           {!isGroup && isRecipientOnline && (
-            <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-[#171827]" />
+            <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#0f2d1c]" />
           )}
         </div>
 
@@ -66,17 +87,17 @@ const ChatHeader = () => {
 
           <div className="text-xs truncate">
             {activeTyping ? (
-              <span className="text-[#FF8BA2] font-semibold flex items-center gap-1">
+              <span className="text-[#6ee7b7] font-semibold flex items-center gap-1">
                 <span>{activeTyping.userName} is typing</span>
                 <span className="inline-flex gap-0.5">
-                  <span className="w-1 h-1 bg-[#F20D3A] rounded-full animate-bounce"></span>
-                  <span className="w-1 h-1 bg-[#F20D3A] rounded-full animate-bounce [animation-delay:0.15s]"></span>
-                  <span className="w-1 h-1 bg-[#F20D3A] rounded-full animate-bounce [animation-delay:0.3s]"></span>
+                  <span className="w-1 h-1 bg-[#10B981] rounded-full animate-bounce"></span>
+                  <span className="w-1 h-1 bg-[#10B981] rounded-full animate-bounce [animation-delay:0.15s]"></span>
+                  <span className="w-1 h-1 bg-[#10B981] rounded-full animate-bounce [animation-delay:0.3s]"></span>
                 </span>
               </span>
             ) : isGroup ? (
-              <span className="text-[#9293A5] flex items-center gap-1 font-medium">
-                <Users className="w-3 h-3 text-[#F20D3A]" />
+              <span className="text-[#9bb8a8] flex items-center gap-1 font-medium">
+                <Users className="w-3 h-3 text-[#10B981]" />
                 <span>{activeConversation.participants?.length || 0} members</span>
               </span>
             ) : isRecipientOnline ? (
@@ -85,7 +106,7 @@ const ChatHeader = () => {
                 <span>Online</span>
               </span>
             ) : (
-              <span className="text-[#9293A5]">
+              <span className="text-[#9bb8a8]">
                 {formatLastSeen(recipient?.lastSeen)}
               </span>
             )}
@@ -93,17 +114,42 @@ const ChatHeader = () => {
         </div>
       </div>
 
-      {/* Right Actions: Group Info Modal Trigger */}
-      {isGroup && (
-        <button
-          onClick={() => setIsGroupDetailsOpen(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#202235] hover:bg-[#2c2f48] text-slate-200 hover:text-white border border-white/5 text-xs font-semibold transition-all duration-200"
-          title="Group Details & Members"
-        >
-          <Info className="w-4 h-4 text-[#F20D3A]" />
-          <span className="hidden sm:inline">Group Info</span>
-        </button>
-      )}
+      {/* Right Actions: Voice Call, Video Call, Group Info */}
+      <div className="flex items-center gap-1.5 sm:gap-2">
+        {!isGroup && recipient && (
+          <>
+            {/* Voice Call Button */}
+            <button
+              onClick={handleVoiceCall}
+              title={`Start voice call with ${recipient.name}`}
+              className="p-2.5 rounded-xl bg-[#18422b] hover:bg-[#10B981] text-[#9bb8a8] hover:text-white border border-[#204e35] transition-all duration-200 active:scale-95"
+            >
+              <Phone className="w-4 h-4" />
+            </button>
+
+            {/* Video Call Button */}
+            <button
+              onClick={handleVideoCall}
+              title={`Start video call with ${recipient.name}`}
+              className="p-2.5 rounded-xl bg-[#18422b] hover:bg-[#10B981] text-[#9bb8a8] hover:text-white border border-[#204e35] transition-all duration-200 active:scale-95"
+            >
+              <Video className="w-4 h-4" />
+            </button>
+          </>
+        )}
+
+        {/* Group Info Modal Trigger */}
+        {isGroup && (
+          <button
+            onClick={() => setIsGroupDetailsOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#18422b] hover:bg-[#255c3e] text-slate-200 hover:text-white border border-white/5 text-xs font-semibold transition-all duration-200"
+            title="Group Details & Members"
+          >
+            <Info className="w-4 h-4 text-[#10B981]" />
+            <span className="hidden sm:inline">Group Info</span>
+          </button>
+        )}
+      </div>
     </div>
   );
 };

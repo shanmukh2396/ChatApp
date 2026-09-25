@@ -73,7 +73,7 @@ const LoginPage = () => {
         {/* Right Panel Header: Logo & Greeting */}
         <div className="mb-6 sm:mb-8">
           <div className="hidden lg:block mb-4">
-            <ConnectHubLogo size="md" variant="light" showTagline={false} />
+            <ConnectHubLogo size="md" variant="light" showTagline={false} showCHMark={true} />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[#222333] tracking-tight">
             Welcome Back!
@@ -123,7 +123,7 @@ const LoginPage = () => {
                 name="rememberMe"
                 checked={formData.rememberMe}
                 onChange={handleChange}
-                className="w-4 h-4 text-[#F20D3A] rounded border-slate-300 focus:ring-[#F20D3A] transition"
+                className="w-4 h-4 text-[#10B981] rounded border-slate-300 focus:ring-[#10B981] transition"
               />
               <span>Remember this device</span>
             </label>
@@ -160,7 +160,7 @@ const LoginPage = () => {
             Don't have an account?{' '}
             <Link
               to="/signup"
-              className="font-bold text-[#F20D3A] hover:text-[#D90B32] hover:underline inline-flex items-center gap-1 transition-colors"
+              className="font-bold text-[#059669] hover:text-[#047857] hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Sign Up <ArrowRight className="w-3.5 h-3.5 inline" />
             </Link>

@@ -142,6 +142,59 @@ const initSocket = (httpServer) => {
       });
     });
 
+    // ─── WebRTC Call Signaling (1-to-1 Voice & Video) ────────────────────────
+    socket.on('call_user', (data) => {
+      const { receiverId, callerName, callerAvatar, callType, offer } = data;
+      if (receiverId) {
+        io.to(receiverId).emit('incoming_call', {
+          callerId: userId,
+          callerName,
+          callerAvatar,
+          callType, // 'voice' | 'video'
+          offer,
+        });
+      }
+    });
+
+    socket.on('call_accepted', (data) => {
+      const { callerId, answer } = data;
+      if (callerId) {
+        io.to(callerId).emit('call_accepted', {
+          receiverId: userId,
+          answer,
+        });
+      }
+    });
+
+    socket.on('call_declined', (data) => {
+      const { callerId, reason } = data;
+      if (callerId) {
+        io.to(callerId).emit('call_declined', {
+          receiverId: userId,
+          reason: reason || 'Call declined',
+        });
+      }
+    });
+
+    socket.on('call_ended', (data) => {
+      const { partnerId } = data;
+      if (partnerId) {
+        io.to(partnerId).emit('call_ended', {
+          senderId: userId,
+        });
+      }
+    });
+
+    socket.on('ice_candidate', (data) => {
+      const { targetUserId, candidate } = data;
+      if (targetUserId && candidate) {
+        io.to(targetUserId).emit('ice_candidate', {
+          candidate,
+          fromUserId: userId,
+        });
+      }
+    });
+
     // ─── Disconnect ─────────────────────────────────────────────────────────
     socket.on('disconnect', async () => {
       if (activeUsers.has(userId)) {

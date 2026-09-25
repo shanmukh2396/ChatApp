@@ -8,57 +8,59 @@ export default {
     extend: {
       colors: {
         brand: {
-          50:  '#fff1f3',
-          100: '#ffe4e8',
-          200: '#fecdd6',
-          300: '#fda4b4',
-          400: '#fb718b',
-          500: '#F20D3A', // Primary Red
-          600: '#D90B32', // Hover Red
-          700: '#A80729', // Dark Red
-          800: '#8c0a25',
-          900: '#4c0514',
-          DEFAULT: '#F20D3A',
+          50:  '#ecfdf5',
+          100: '#d1fae5',
+          200: '#a7f3d0',
+          300: '#6ee7b7',
+          400: '#34d399',
+          500: '#10B981', // Emerald Green Primary
+          600: '#059669', // Hover Emerald
+          700: '#047857', // Dark Emerald
+          800: '#065f46',
+          900: '#064e3b',
+          950: '#022c22',
+          DEFAULT: '#10B981',
         },
         primary: {
-          50:  '#fff1f3',
-          100: '#ffe4e8',
-          200: '#fecdd6',
-          300: '#fda4b4',
-          400: '#fb718b',
-          500: '#F20D3A', // Primary Red
-          600: '#D90B32', // Hover Red
-          700: '#A80729', // Dark Red
-          800: '#8c0a25',
-          900: '#4c0514',
-          DEFAULT: '#F20D3A',
+          50:  '#ecfdf5',
+          100: '#d1fae5',
+          200: '#a7f3d0',
+          300: '#6ee7b7',
+          400: '#34d399',
+          500: '#10B981', // Emerald Green Primary
+          600: '#059669', // Hover Emerald
+          700: '#047857', // Dark Emerald
+          800: '#065f46',
+          900: '#064e3b',
+          950: '#022c22',
+          DEFAULT: '#10B981',
         },
-        navy: {
-          950: '#0c0d15',
-          900: '#11121d',
-          850: '#131420',
-          800: '#171827', // Dark navy base
-          750: '#1c1e30',
-          700: '#202235', // Secondary dark surface
-          650: '#26283d', // Hover surface
-          600: '#2c2f48',
-          500: '#3d4263',
-          400: '#585e8a',
+        forest: {
+          950: '#05120a', // Near-black forest background
+          900: '#071a0f', // Deep dark background
+          850: '#0b2416', // Navigation bar surface
+          800: '#0f2d1c', // Main dark surface
+          750: '#133823',
+          700: '#18422b', // Card & panel surface
+          650: '#1e4d33', // Hover surface
+          600: '#255c3e', // Border & divider
+          500: '#347a55',
+          400: '#4f9b71',
         },
         surface: {
-          DEFAULT: '#171827',   // Dark navy main
-          darker:  '#11121d',   // Deepest background
-          nav:     '#131420',   // Nav column
-          card:    '#202235',   // Card / panel surface
-          input:   '#131420',   // Input background
-          border:  '#2a2c42',   // Border color
-          hover:   '#26283d',   // Hover state
-          light:   '#F7F7FA',   // Light theme surface
+          DEFAULT: '#0f2d1c',   // Dark forest green main
+          darker:  '#071a0f',   // Deepest background
+          nav:     '#0b2416',   // Navigation bar
+          card:    '#18422b',   // Card / panel surface
+          input:   '#0b2416',   // Input background
+          border:  '#204e35',   // Border color
+          hover:   '#1e4d33',   // Hover state
+          light:   '#F7FDF9',   // Light theme surface
         },
         content: {
           main:  '#FFFFFF',
-          muted: '#9293A5',
-          dark:  '#222333',
+          muted: '#9bb8a8',
+          dark:  '#0f2d1c',
         }
       },
       fontFamily: {
@@ -69,11 +71,13 @@ export default {
         'slide-up':   'slideUp 0.2s ease-out',
         'bounce-dot': 'bounceDot 1.2s infinite',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'ripple':     'ripple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite',
       },
       keyframes: {
         fadeIn:    { from: { opacity: '0' }, to: { opacity: '1' } },
         slideUp:   { from: { opacity: '0', transform: 'translateY(8px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
         bounceDot: { '0%, 80%, 100%': { transform: 'scale(0)' }, '40%': { transform: 'scale(1)' } },
+        ripple:    { '0%': { transform: 'scale(0.8)', opacity: '1' }, '100%': { transform: 'scale(2.2)', opacity: '0' } },
       },
     },
   },

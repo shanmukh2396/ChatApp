@@ -53,7 +53,7 @@ const getUserById = async (req, res, next) => {
  */
 const updateUserProfile = async (req, res, next) => {
   try {
-    const { name, avatar } = req.body;
+    const { name, avatar, phoneNumber, address, bio } = req.body;
     const user = await User.findById(req.user._id);
 
     if (!user) {
@@ -61,7 +61,10 @@ const updateUserProfile = async (req, res, next) => {
     }
 
     if (name) user.name = name.trim();
-    if (avatar) user.avatar = avatar;
+    if (avatar !== undefined) user.avatar = avatar;
+    if (phoneNumber !== undefined) user.phoneNumber = phoneNumber.trim();
+    if (address !== undefined) user.address = address.trim();
+    if (bio !== undefined) user.bio = bio.trim();
 
     const updatedUser = await user.save();
 
@@ -70,6 +73,9 @@ const updateUserProfile = async (req, res, next) => {
       name: updatedUser.name,
       email: updatedUser.email,
       avatar: updatedUser.avatar,
+      phoneNumber: updatedUser.phoneNumber,
+      address: updatedUser.address,
+      bio: updatedUser.bio,
       isOnline: updatedUser.isOnline,
       lastSeen: updatedUser.lastSeen,
     });

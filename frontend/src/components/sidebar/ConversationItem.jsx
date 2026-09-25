@@ -35,12 +35,12 @@ const ConversationItem = ({ conversation }) => {
   const renderLatestMessage = () => {
     if (activeTyping) {
       return (
-        <span className="text-[#FF8BA2] font-semibold italic flex items-center gap-1">
+        <span className="text-[#6ee7b7] font-semibold italic flex items-center gap-1">
           <span>{activeTyping.userName} is typing</span>
           <span className="inline-flex gap-0.5">
-            <span className="w-1 h-1 bg-[#F20D3A] rounded-full animate-bounce"></span>
-            <span className="w-1 h-1 bg-[#F20D3A] rounded-full animate-bounce [animation-delay:0.15s]"></span>
-            <span className="w-1 h-1 bg-[#F20D3A] rounded-full animate-bounce [animation-delay:0.3s]"></span>
+            <span className="w-1 h-1 bg-[#10B981] rounded-full animate-bounce"></span>
+            <span className="w-1 h-1 bg-[#10B981] rounded-full animate-bounce [animation-delay:0.15s]"></span>
+            <span className="w-1 h-1 bg-[#10B981] rounded-full animate-bounce [animation-delay:0.3s]"></span>
           </span>
         </span>
       );
@@ -48,7 +48,7 @@ const ConversationItem = ({ conversation }) => {
 
     const latest = conversation.latestMessage;
     if (!latest) {
-      return <span className="text-[#9293A5] italic text-[11px]">No messages yet</span>;
+      return <span className="text-[#9bb8a8] italic text-[11px]">No messages yet</span>;
     }
 
     const senderPrefix =
@@ -60,7 +60,7 @@ const ConversationItem = ({ conversation }) => {
 
     if (latest.messageType === 'image') {
       return (
-        <span className="flex items-center gap-1 text-[#FF8BA2]">
+        <span className="flex items-center gap-1 text-[#6ee7b7]">
           <span>{senderPrefix}</span>
           <Image className="w-3.5 h-3.5" />
           <span>Photo</span>
@@ -70,7 +70,7 @@ const ConversationItem = ({ conversation }) => {
 
     if (latest.messageType === 'file') {
       return (
-        <span className="flex items-center gap-1 text-[#FF8BA2]">
+        <span className="flex items-center gap-1 text-[#6ee7b7]">
           <span>{senderPrefix}</span>
           <FileText className="w-3.5 h-3.5" />
           <span>Attachment</span>
@@ -86,8 +86,8 @@ const ConversationItem = ({ conversation }) => {
       onClick={() => selectConversation(conversation)}
       className={`group flex items-center gap-3 p-3 rounded-2xl cursor-pointer transition-all duration-200 ${
         isSelected
-          ? 'bg-[#202235] border-l-4 border-[#F20D3A] shadow-md shadow-black/20'
-          : 'hover:bg-[#202235]/60 hover:translate-x-0.5'
+          ? 'bg-[#18422b] border-l-4 border-[#10B981] shadow-md shadow-black/30'
+          : 'hover:bg-[#18422b]/50 hover:translate-x-0.5'
       }`}
     >
       {/* ─── Avatar with Online Indicator ─────────────────────────────────── */}
@@ -101,12 +101,12 @@ const ConversationItem = ({ conversation }) => {
           alt={isGroup ? conversation.name : recipient?.name}
           className={`w-11 h-11 rounded-2xl object-cover border-2 transition-colors ${
             isSelected
-              ? 'border-[#F20D3A]/60'
-              : 'border-[#202235] group-hover:border-white/10'
+              ? 'border-[#10B981]/80'
+              : 'border-[#18422b] group-hover:border-white/10'
           }`}
         />
         {!isGroup && isOnline && (
-          <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-[#171827]" />
+          <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#0c2417]" />
         )}
       </div>
 
@@ -126,7 +126,7 @@ const ConversationItem = ({ conversation }) => {
           {conversation.latestMessage?.createdAt && (
             <span
               className={`text-[10px] font-semibold shrink-0 ml-2 ${
-                unreadCount > 0 ? 'text-[#F20D3A]' : 'text-[#9293A5]'
+                unreadCount > 0 ? 'text-[#10B981]' : 'text-[#9bb8a8]'
               }`}
             >
               {formatConversationTime(conversation.latestMessage.createdAt)}
@@ -139,7 +139,7 @@ const ConversationItem = ({ conversation }) => {
             className={`text-xs truncate ${
               unreadCount > 0
                 ? 'text-slate-100 font-semibold'
-                : 'text-[#9293A5] group-hover:text-slate-300'
+                : 'text-[#9bb8a8] group-hover:text-slate-300'
             }`}
           >
             {renderLatestMessage()}
@@ -147,7 +147,7 @@ const ConversationItem = ({ conversation }) => {
 
           {/* Unread Count Badge */}
           {unreadCount > 0 && (
-            <span className="min-w-[1.25rem] h-5 px-1.5 rounded-full bg-[#F20D3A] text-white text-[10px] font-black flex items-center justify-center shrink-0 shadow-sm shadow-[#F20D3A]/40 animate-pulse">
+            <span className="min-w-[1.25rem] h-5 px-1.5 rounded-full bg-[#10B981] text-white text-[10px] font-black flex items-center justify-center shrink-0 shadow-sm shadow-[#10B981]/40 animate-pulse">
               {unreadCount}
             </span>
           )}
@@ -158,3 +158,4 @@ const ConversationItem = ({ conversation }) => {
 };
 
 export default ConversationItem;
+

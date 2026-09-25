@@ -18,7 +18,7 @@ const MessageBubble = ({ message, isGroupChat }) => {
     >
       {/* Sender name in group chats */}
       {isGroupChat && !isSelf && (
-        <span className="text-[11px] font-bold text-[#FF8BA2] mb-1 ml-2">
+        <span className="text-[11px] font-bold text-[#6ee7b7] mb-1 ml-2">
           {message.sender?.name || 'User'}
         </span>
       )}
@@ -26,8 +26,8 @@ const MessageBubble = ({ message, isGroupChat }) => {
       <div
         className={`relative transition-all duration-150 ${
           isSelf
-            ? 'bg-[#F20D3A] text-white rounded-2xl rounded-br-xs px-4 py-2.5 max-w-xs sm:max-w-sm lg:max-w-md shadow-md shadow-[#F20D3A]/20'
-            : 'bg-[#202235] text-slate-100 rounded-2xl rounded-bl-xs px-4 py-2.5 max-w-xs sm:max-w-sm lg:max-w-md border border-white/5 shadow-sm'
+            ? 'bg-[#059669] text-white rounded-2xl rounded-br-xs px-4 py-2.5 max-w-xs sm:max-w-sm lg:max-w-md shadow-md shadow-[#059669]/20'
+            : 'bg-[#18422b] text-slate-100 rounded-2xl rounded-bl-xs px-4 py-2.5 max-w-xs sm:max-w-sm lg:max-w-md border border-white/5 shadow-sm'
         }`}
       >
         {/* 1. Image Attachment */}
@@ -54,12 +54,12 @@ const MessageBubble = ({ message, isGroupChat }) => {
             className={`flex items-center gap-3 p-2.5 rounded-xl mb-1.5 min-w-[220px] ${
               isSelf
                 ? 'bg-black/20 border border-white/10'
-                : 'bg-[#171827] border border-white/5'
+                : 'bg-[#0c2417] border border-white/5'
             }`}
           >
             <div
               className={`p-2.5 rounded-xl ${
-                isSelf ? 'bg-white/20 text-white' : 'bg-[#F20D3A]/20 text-[#FF8BA2]'
+                isSelf ? 'bg-white/20 text-white' : 'bg-[#10B981]/20 text-[#6ee7b7]'
               }`}
             >
               <FileText className="w-5 h-5" />
@@ -70,7 +70,7 @@ const MessageBubble = ({ message, isGroupChat }) => {
               </p>
               <p
                 className={`text-[10px] ${
-                  isSelf ? 'text-white/80' : 'text-[#9293A5]'
+                  isSelf ? 'text-white/80' : 'text-[#9bb8a8]'
                 }`}
               >
                 {formatFileSize(message.attachment.fileSize)}
@@ -99,7 +99,7 @@ const MessageBubble = ({ message, isGroupChat }) => {
         {/* 4. Timestamp & Read Checkmarks */}
         <div
           className={`flex items-center gap-1.5 mt-1 text-[10px] font-semibold select-none ${
-            isSelf ? 'text-white/80 justify-end' : 'text-[#9293A5] justify-start'
+            isSelf ? 'text-white/80 justify-end' : 'text-[#9bb8a8] justify-start'
           }`}
         >
           <span>{formatMessageTime(message.createdAt)}</span>
@@ -107,9 +107,9 @@ const MessageBubble = ({ message, isGroupChat }) => {
           {isSelf && (
             <span className="inline-flex items-center">
               {isRead ? (
-                <CheckCheck className="w-3.5 h-3.5 text-white" title="Seen" />
+                <CheckCheck className="w-3.5 h-3.5 text-emerald-200" title="Seen" />
               ) : (
-                <Check className="w-3.5 h-3.5 text-white/70" title="Sent" />
+                <Check className="w-3.5 h-3.5 text-emerald-100/70" title="Sent" />
               )}
             </span>
           )}

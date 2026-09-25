@@ -69,39 +69,39 @@ const GroupDetailsModal = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-      <div className="w-full max-w-md bg-[#171827] border border-[#202235] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+      <div className="w-full max-w-md bg-[#0c2417] border border-[#18422b] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-[#202235]">
+        <div className="flex items-center justify-between p-5 border-b border-[#18422b]">
           <h2 className="text-lg font-extrabold text-white flex items-center gap-2.5">
-            <Users className="w-5 h-5 text-[#F20D3A]" />
+            <Users className="w-5 h-5 text-[#10B981]" />
             <span>Group Info</span>
           </h2>
           <button
             onClick={() => setIsGroupDetailsOpen(false)}
-            className="p-2 rounded-xl text-[#9293A5] hover:text-white hover:bg-[#202235] transition-colors"
+            className="p-2 rounded-xl text-[#9bb8a8] hover:text-white hover:bg-[#18422b] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Group Profile Header */}
-        <div className="p-6 flex flex-col items-center border-b border-[#202235] bg-[#131420]/60">
+        <div className="p-6 flex flex-col items-center border-b border-[#18422b] bg-[#071a0f]/60">
           <img
             src={activeConversation.groupAvatar}
             alt={activeConversation.name}
-            className="w-20 h-20 rounded-3xl object-cover mb-3 border-2 border-[#F20D3A]/50 shadow-xl"
+            className="w-20 h-20 rounded-3xl object-cover mb-3 border-2 border-[#10B981]/50 shadow-xl"
           />
           <h3 className="text-lg font-extrabold text-white text-center">
             {activeConversation.name}
           </h3>
-          <p className="text-xs text-[#9293A5] mt-1 font-semibold">
+          <p className="text-xs text-[#9bb8a8] mt-1 font-semibold">
             {activeConversation.participants?.length || 0} active members
           </p>
         </div>
 
         {/* Members List */}
         <div className="p-4 flex-1 overflow-y-auto">
-          <h4 className="text-xs font-bold text-[#9293A5] uppercase tracking-wider mb-3">
+          <h4 className="text-xs font-bold text-[#9bb8a8] uppercase tracking-wider mb-3">
             Group Members
           </h4>
           <div className="space-y-2">
@@ -114,7 +114,7 @@ const GroupDetailsModal = () => {
               return (
                 <div
                   key={member._id}
-                  className="flex items-center justify-between p-3 rounded-2xl bg-[#202235]/60 border border-white/5"
+                  className="flex items-center justify-between p-3 rounded-2xl bg-[#18422b]/60 border border-white/5"
                 >
                   <div className="flex items-center gap-3">
                     <img
@@ -128,12 +128,12 @@ const GroupDetailsModal = () => {
                           {member.name}
                         </span>
                         {isCurrentUser && (
-                          <span className="text-[10px] text-[#FF8BA2] bg-[#F20D3A]/20 px-2 py-0.5 rounded-md font-bold border border-[#F20D3A]/30">
+                          <span className="text-[10px] text-[#6ee7b7] bg-[#10B981]/20 px-2 py-0.5 rounded-md font-bold border border-[#10B981]/30">
                             You
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-[#9293A5]">{member.email}</p>
+                      <p className="text-xs text-[#9bb8a8]">{member.email}</p>
                     </div>
                   </div>
 
@@ -148,7 +148,7 @@ const GroupDetailsModal = () => {
                         onClick={() => handleRemoveMember(member._id)}
                         disabled={loading}
                         title="Remove member"
-                        className="p-1.5 rounded-xl text-[#9293A5] hover:text-[#F20D3A] hover:bg-[#F20D3A]/10 transition-colors"
+                        className="p-1.5 rounded-xl text-[#9bb8a8] hover:text-red-400 hover:bg-red-500/10 transition-colors"
                       >
                         <UserMinus className="w-4 h-4" />
                       </button>
@@ -161,7 +161,7 @@ const GroupDetailsModal = () => {
         </div>
 
         {/* Footer Action: Leave Group */}
-        <div className="p-4 border-t border-[#202235] bg-[#171827]">
+        <div className="p-4 border-t border-[#18422b] bg-[#0c2417]">
           <button
             onClick={handleLeaveGroup}
             disabled={loading}
@@ -177,3 +177,4 @@ const GroupDetailsModal = () => {
 };
 
 export default GroupDetailsModal;
+

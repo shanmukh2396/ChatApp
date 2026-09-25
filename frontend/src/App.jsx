@@ -6,6 +6,11 @@ import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
 import { ChatProvider } from './context/ChatContext';
+import { CallProvider } from './context/CallContext';
+
+// Call Modals
+import IncomingCallModal from './components/call/IncomingCallModal';
+import CallModal from './components/call/CallModal';
 
 // Route Guards & Pages
 import ProtectedRoute from './routes/ProtectedRoute';
@@ -24,15 +29,15 @@ function App() {
         toastOptions={{
           duration: 3500,
           style: {
-            background: '#0f172a',
+            background: '#0f2d1c',
             color: '#f8fafc',
-            border: '1px solid #1e293b',
+            border: '1px solid #204e35',
             borderRadius: '14px',
             fontSize: '14px',
-            boxShadow: '0 10px 30px -10px rgba(0, 0, 0, 0.5)',
+            boxShadow: '0 10px 30px -10px rgba(0, 0, 0, 0.6)',
           },
           success: {
-            iconTheme: { primary: '#3b82f6', secondary: '#f8fafc' },
+            iconTheme: { primary: '#10B981', secondary: '#0f2d1c' },
           },
           error: {
             iconTheme: { primary: '#ef4444', secondary: '#f8fafc' },
@@ -43,22 +48,28 @@ function App() {
       <AuthProvider>
         <SocketProvider>
           <ChatProvider>
-            <Routes>
-              {/* Public Auth Routes */}
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/register" element={<RegisterPage />} />
+            <CallProvider>
+              {/* WebRTC Global Call Modals */}
+              <IncomingCallModal />
+              <CallModal />
 
-              {/* Protected App Routes */}
-              <Route element={<ProtectedRoute />}>
-                <Route path="/" element={<ChatDashboard />} />
-                <Route path="/chat" element={<Navigate to="/" replace />} />
-                <Route path="/profile" element={<ProfilePage />} />
-              </Route>
+              <Routes>
+                {/* Public Auth Routes */}
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/register" element={<RegisterPage />} />
 
-              {/* Fallback */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
+                {/* Protected App Routes */}
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/" element={<ChatDashboard />} />
+                  <Route path="/chat" element={<Navigate to="/" replace />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                </Route>
+
+                {/* Fallback */}
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </CallProvider>
           </ChatProvider>
         </SocketProvider>
       </AuthProvider>

@@ -19,12 +19,12 @@ const AuthButton = ({
       onClick={onClick}
       disabled={isDisabled}
       className={`w-full inline-flex items-center justify-center gap-2 
-        bg-gradient-to-r from-[#F20D3A] via-[#E80B36] to-[#D90B32] 
-        hover:from-[#D90B32] hover:via-[#C7092D] hover:to-[#A80729] 
+        bg-gradient-to-r from-[#059669] via-[#10B981] to-[#047857] 
+        hover:from-[#047857] hover:via-[#059669] hover:to-[#065f46] 
         text-white font-bold text-sm py-3 px-5 rounded-xl
-        shadow-lg shadow-[#F20D3A]/25 hover:shadow-xl hover:shadow-[#F20D3A]/35
+        shadow-lg shadow-[#10B981]/25 hover:shadow-xl hover:shadow-[#10B981]/35
         transition-all duration-200 active:scale-[0.99]
-        focus:outline-none focus:ring-4 focus:ring-[#F20D3A]/20
+        focus:outline-none focus:ring-4 focus:ring-[#10B981]/20
         disabled:opacity-60 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100
         ${className}`}
     >

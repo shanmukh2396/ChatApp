@@ -31,6 +31,23 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    phoneNumber: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    address: {
+      type: String,
+      default: '',
+      trim: true,
+      maxlength: [200, 'Address cannot exceed 200 characters'],
+    },
+    bio: {
+      type: String,
+      default: '',
+      trim: true,
+      maxlength: [300, 'Description cannot exceed 300 characters'],
+    },
     isOnline: {
       type: Boolean,
       default: false,

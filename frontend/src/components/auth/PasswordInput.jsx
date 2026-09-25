@@ -40,9 +40,9 @@ const PasswordInput = ({
         <div className="flex items-center justify-between mb-1.5">
           <label
             htmlFor={id || name}
-            className="block text-xs font-bold text-[#222333] tracking-wide"
+            className="block text-xs font-bold text-[#0f2d1c] tracking-wide"
           >
-            {label} {required && <span className="text-[#F20D3A]">*</span>}
+            {label} {required && <span className="text-[#10B981]">*</span>}
           </label>
           {showStrength && value && (
             <span className={`text-[11px] font-bold ${
@@ -56,8 +56,8 @@ const PasswordInput = ({
       )}
 
       <div className="relative rounded-xl shadow-sm">
-        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#9293A5]">
-          <Lock className="w-4 h-4 transition-colors group-focus-within:text-[#F20D3A]" />
+        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#9bb8a8]">
+          <Lock className="w-4 h-4 transition-colors group-focus-within:text-[#10B981]" />
         </div>
 
         <input
@@ -71,13 +71,13 @@ const PasswordInput = ({
           required={required}
           autoComplete={autoComplete}
           disabled={disabled}
-          className={`w-full text-sm text-[#222333] bg-white placeholder-[#9293A5] 
+          className={`w-full text-sm text-[#0f2d1c] bg-white placeholder-[#9bb8a8] 
             border rounded-xl py-2.5 pl-10 pr-11 transition-all duration-200 
             outline-none focus:ring-4 
             ${
               error
                 ? 'border-red-400 focus:border-red-500 focus:ring-red-500/15 text-red-900'
-                : 'border-slate-200 hover:border-slate-300 focus:border-[#F20D3A] focus:ring-[#F20D3A]/10'
+                : 'border-slate-200 hover:border-slate-300 focus:border-[#10B981] focus:ring-[#10B981]/10'
             }
             disabled:bg-slate-50 disabled:text-slate-400 disabled:cursor-not-allowed
             ${className}`}
@@ -88,7 +88,7 @@ const PasswordInput = ({
           tabIndex={-1}
           onClick={() => setShowPassword(!showPassword)}
           aria-label={showPassword ? 'Hide password' : 'Show password'}
-          className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#9293A5] hover:text-[#222333] focus:outline-none transition-colors"
+          className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#9bb8a8] hover:text-[#0f2d1c] focus:outline-none transition-colors"
         >
           {showPassword ? (
             <EyeOff className="w-4 h-4" />

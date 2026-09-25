@@ -92,7 +92,7 @@ const SignupPage = () => {
         {/* Header with ConnectHub Logo */}
         <div className="mb-6 sm:mb-8">
           <div className="hidden lg:block mb-4">
-            <ConnectHubLogo size="md" variant="light" showTagline={false} />
+            <ConnectHubLogo size="md" variant="light" showTagline={false} showCHMark={true} />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[#222333] tracking-tight">
             Create Your Account
@@ -196,7 +196,7 @@ const SignupPage = () => {
             Already have an account?{' '}
             <Link
               to="/login"
-              className="font-bold text-[#F20D3A] hover:text-[#D90B32] hover:underline inline-flex items-center gap-1 transition-colors"
+              className="font-bold text-[#059669] hover:text-[#047857] hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Log In <ArrowRight className="w-3.5 h-3.5 inline" />
             </Link>
