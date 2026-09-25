@@ -16,12 +16,12 @@
   }
 
   body {
-    @apply h-full bg-surface text-slate-100 font-sans antialiased;
-    overflow: hidden; /* prevent double scrollbar — inner panels scroll */
+    @apply min-h-full bg-surface text-slate-100 font-sans antialiased;
+    overflow-x: hidden;
   }
 
   #root {
-    @apply h-full;
+    @apply min-h-full flex flex-col;
   }
 
   /* Scrollbar styling for chat panels */
