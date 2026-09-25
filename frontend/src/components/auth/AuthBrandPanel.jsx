@@ -12,7 +12,7 @@ const AuthBrandPanel = ({ mode = 'login' }) => {
       <div className="relative z-10 flex items-center justify-between">
         <ConnectHubLogo size="md" variant="light" showTagline={false} showCHMark={true} />
 
-        <div className="text-xs text-[#5C6D63] bg-white/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#D8E2D7] shadow-xs">
+        <div className="text-xs text-[#5C6D63] bg-white/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#D8E2D7] shadow-sm">
           <span>{isLogin ? "New here?" : "Joined us?"} </span>
           <Link
             to={isLogin ? "/signup" : "/login"}
@@ -43,7 +43,7 @@ const AuthBrandPanel = ({ mode = 'login' }) => {
 
         {/* Feature Highlights */}
         <div className="grid grid-cols-2 gap-2.5 mt-4">
-          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/80 border border-[#D8E2D7] shadow-xs">
+          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/80 border border-[#D8E2D7] shadow-sm">
             <div className="p-1.5 rounded-lg bg-[#E3EBE2] text-[#547A60]">
               <Zap className="w-4 h-4" />
             </div>
@@ -53,7 +53,7 @@ const AuthBrandPanel = ({ mode = 'login' }) => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/80 border border-[#D8E2D7] shadow-xs">
+          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/80 border border-[#D8E2D7] shadow-sm">
             <div className="p-1.5 rounded-lg bg-[#E3EBE2] text-[#547A60]">
               <ShieldCheck className="w-4 h-4" />
             </div>
@@ -67,7 +67,7 @@ const AuthBrandPanel = ({ mode = 'login' }) => {
 
       {/* ─── Bottom Decorative Testimonial Card ────────────────────────────── */}
       <div className="relative z-10">
-        <div className="p-3.5 rounded-2xl bg-white/90 border border-[#D8E2D7] shadow-xs">
+        <div className="p-3.5 rounded-2xl bg-white/90 border border-[#D8E2D7] shadow-sm">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2.5">
               <div className="relative">

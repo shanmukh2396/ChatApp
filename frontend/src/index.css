@@ -135,7 +135,7 @@
            min-w-[1.25rem] h-5 px-1.5
            bg-forest text-white
            text-[10px] font-bold rounded-full
-           shadow-xs;
+           shadow-sm;
   }
 }
 
