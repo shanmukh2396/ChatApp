@@ -126,7 +126,7 @@ const ProfilePage = () => {
             <span>Back to Messages</span>
           </button>
 
-          <ConnectHubLogo size="sm" variant="light" showTagline={false} showCHMark={true} />
+          <ConnectHubLogo size="sm" variant="light" showTagline={false} />
         </div>
 
         {/* Profile Card */}

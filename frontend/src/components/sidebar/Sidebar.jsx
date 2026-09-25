@@ -62,7 +62,7 @@ const Sidebar = ({ filterTab = 'all', setFilterTab }) => {
       <div className="p-4 sm:p-5 border-b border-sage-300 flex items-center justify-between bg-white/50">
         <div className="flex items-center gap-3">
           <div className="md:hidden">
-            <ConnectHubLogo size="sm" variant="light" showCHMark={true} />
+            <ConnectHubLogo size="sm" variant="light" />
           </div>
           <div className="hidden md:block">
             <h2 className="text-xl font-extrabold text-charcoal tracking-tight flex items-center gap-2">

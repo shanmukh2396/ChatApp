@@ -13,9 +13,10 @@ const hexToRgb = (hex) => {
 
 const vertexShader = `
   attribute vec2 position;
+  attribute vec2 uv;
   varying vec2 vUv;
   void main() {
-    vUv = (position + 1.0) * 0.5;
+    vUv = uv;
     gl_Position = vec4(position, 0.0, 1.0);
   }
 `;
@@ -27,10 +28,10 @@ const fragmentShader = `
   uniform float uTime;
   uniform vec2 uResolution;
   uniform vec2 uMouse;
-  uniform vec3 uColor1; // Deep Forest Green
-  uniform vec3 uColor2; // Emerald Green
-  uniform vec3 uColor3; // Mint Green
-  uniform vec3 uColor4; // Soft Lime/Light Accent
+  uniform vec3 uColor1; // Muted forest green (#547A60)
+  uniform vec3 uColor2; // Pale sage (#E3EBE2)
+  uniform vec3 uColor3; // Soft mint (#D5E5D5)
+  uniform vec3 uColor4; // Warm off-white (#F4F6F2)
   uniform float uSpeed;
   uniform float uIntensity;
   uniform float uRays;
@@ -46,11 +47,11 @@ const fragmentShader = `
   }
 
   void main() {
-    vec2 aspect = vec2(uResolution.x / uResolution.y, 1.0);
+    vec2 aspect = vec2(uResolution.x / max(uResolution.y, 1.0), 1.0);
     vec2 uv = (vUv - 0.5) * aspect;
 
     // Mouse offset
-    vec2 mouseOffset = (uMouse - 0.5) * uMouseInfluence * 0.4;
+    vec2 mouseOffset = (uMouse - 0.5) * uMouseInfluence * 0.3;
     uv -= mouseOffset;
 
     // Polar coordinates
@@ -59,16 +60,16 @@ const fragmentShader = `
 
     float time = uTime * uSpeed;
 
-    // Prismatic chromatic dispersion & dynamic burst rays
+    // Prismatic dynamic rays & dispersion waves
     float rays = sin(angle * uRays + time * 0.8) * cos(angle * (uRays * 0.5) - time * 0.5);
-    rays += sin(angle * 12.0 + dist * 10.0 - time) * 0.3;
+    rays += sin(angle * 10.0 + dist * 8.0 - time) * 0.25;
 
     // Dispersion wave
-    float wave = sin(dist * 18.0 - time * 2.0 + rays * 2.0);
-    float glow = smoothstep(1.2, 0.0, dist) * uIntensity;
+    float wave = sin(dist * 14.0 - time * 1.5 + rays * 1.5);
+    float glow = smoothstep(1.4, 0.0, dist) * uIntensity;
 
     // Color gradient mixing across prismatic angles
-    float colorPhase = fract((angle / 6.28318) + dist * 0.4 + time * 0.05);
+    float colorPhase = fract((angle / 6.2831853) + dist * 0.3 + time * 0.04);
     vec3 col;
     if (colorPhase < 0.33) {
       col = mix(uColor1, uColor2, colorPhase * 3.0);
@@ -80,8 +81,8 @@ const fragmentShader = `
 
     // Prismatic highlight bursts
     float burst = max(0.0, rays * wave) * glow;
-    col += uColor4 * burst * 0.8;
-    col += uColor3 * pow(max(0.0, 1.0 - dist * 1.5), 2.0) * 0.6;
+    col += uColor3 * burst * 0.5;
+    col += uColor2 * pow(max(0.0, 1.0 - dist * 1.2), 2.0) * 0.4;
 
     // Subtle grain
     float grain = (hash(vUv * 1000.0 + fract(uTime)) - 0.5) * uGrain;
@@ -98,14 +99,13 @@ const PrismaticBurst = ({
   color4 = '#F4F6F2', // Warm off-white
   speed = 0.2,
   intensity = 0.45,
-  rays = 12.0,
+  rays = 10.0,
   grain = 0.015,
   mouseInfluence = 0.15,
-  opacity = 0.35,
+  opacity = 0.45,
   className = '',
 }) => {
   const containerRef = useRef(null);
-
 
   useEffect(() => {
     const container = containerRef.current;
@@ -121,20 +121,24 @@ const PrismaticBurst = ({
         alpha: true,
         antialias: true,
         dpr: Math.min(window.devicePixelRatio || 1, 2),
+        premultipliedAlpha: false,
       });
       gl = renderer.gl;
       container.appendChild(gl.canvas);
       gl.canvas.className = 'prismatic-burst-canvas';
     } catch (e) {
-      console.warn('WebGL not supported for PrismaticBurst, using fallback');
+      console.warn('WebGL not supported for PrismaticBurst, using fallback', e);
       return;
     }
 
     const geometry = new Triangle(gl);
 
+    const initialW = container.clientWidth || window.innerWidth || 800;
+    const initialH = container.clientHeight || window.innerHeight || 600;
+
     const uniforms = {
       uTime: { value: 0 },
-      uResolution: { value: [container.clientWidth, container.clientHeight] },
+      uResolution: { value: [initialW, initialH] },
       uMouse: { value: [0.5, 0.5] },
       uColor1: { value: hexToRgb(color1) },
       uColor2: { value: hexToRgb(color2) },
@@ -157,38 +161,74 @@ const PrismaticBurst = ({
 
     const mesh = new Mesh(gl, { geometry, program });
 
-    const handleResize = () => {
-      if (!container || !renderer) return;
-      const width = container.clientWidth || window.innerWidth;
-      const height = container.clientHeight || window.innerHeight;
-      renderer.setSize(width, height);
-      uniforms.uResolution.value = [width, height];
+    const resize = (width, height) => {
+      if (!renderer || !container) return;
+      const w = width || container.clientWidth || window.innerWidth;
+      const h = height || container.clientHeight || window.innerHeight;
+      if (w > 0 && h > 0) {
+        renderer.setSize(w, h);
+        uniforms.uResolution.value = [w, h];
+      }
     };
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    resize(initialW, initialH);
+
+    // Use ResizeObserver for accurate and responsive viewport sizing
+    let resizeObserver;
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          const { width, height } = entry.contentRect;
+          if (width > 0 && height > 0) {
+            resize(width, height);
+          }
+        }
+      });
+      resizeObserver.observe(container);
+    }
+
+    const handleWindowResize = () => {
+      resize();
+    };
+    window.addEventListener('resize', handleWindowResize);
 
     let targetMouse = [0.5, 0.5];
     const handleMouseMove = (e) => {
       if (!container) return;
       const rect = container.getBoundingClientRect();
-      targetMouse[0] = (e.clientX - rect.left) / rect.width;
-      targetMouse[1] = 1.0 - (e.clientY - rect.top) / rect.height;
+      if (rect.width > 0 && rect.height > 0) {
+        targetMouse[0] = (e.clientX - rect.left) / rect.width;
+        targetMouse[1] = 1.0 - (e.clientY - rect.top) / rect.height;
+      }
     };
-
     window.addEventListener('mousemove', handleMouseMove);
 
-    const observer = new IntersectionObserver(([entry]) => {
-      isVisible = entry.isIntersecting;
-    });
-    observer.observe(container);
+    // Respect user reduced-motion preferences
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // IntersectionObserver to pause rendering when component is offscreen
+    let intersectionObserver;
+    if (typeof IntersectionObserver !== 'undefined') {
+      intersectionObserver = new IntersectionObserver(([entry]) => {
+        isVisible = entry.isIntersecting;
+      });
+      intersectionObserver.observe(container);
+    }
+
+    // Page Visibility API to pause rendering when tab is hidden
+    const handleVisibilityChange = () => {
+      isVisible = document.visibilityState === 'visible';
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     let lastTime = performance.now();
     const render = (currentTime) => {
       animationFrameId = requestAnimationFrame(render);
       if (!isVisible) return;
 
-      const delta = (currentTime - lastTime) * 0.001;
+      const delta = prefersReducedMotion ? 0 : (currentTime - lastTime) * 0.001;
       lastTime = currentTime;
 
       uniforms.uTime.value += delta;
@@ -202,9 +242,11 @@ const PrismaticBurst = ({
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', handleWindowResize);
       window.removeEventListener('mousemove', handleMouseMove);
-      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (resizeObserver) resizeObserver.disconnect();
+      if (intersectionObserver) intersectionObserver.disconnect();
 
       if (gl && gl.canvas && gl.canvas.parentElement) {
         gl.canvas.parentElement.removeChild(gl.canvas);

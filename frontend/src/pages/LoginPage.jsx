@@ -73,7 +73,7 @@ const LoginPage = () => {
         {/* Right Panel Header: Logo & Greeting */}
         <div className="mb-4 sm:mb-5">
           <div className="hidden lg:block mb-3">
-            <ConnectHubLogo size="sm" variant="light" showTagline={false} showCHMark={true} />
+            <ConnectHubLogo size="sm" variant="light" showTagline={false} />
           </div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-[#26332B] tracking-tight">
             Welcome Back

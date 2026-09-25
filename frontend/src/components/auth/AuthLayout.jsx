@@ -29,7 +29,7 @@ const AuthLayout = ({ children, mode = 'login' }) => {
         <div className="w-full lg:w-1/2 bg-white text-[#26332B] p-5 sm:p-7 xl:p-8 flex flex-col justify-between">
           {/* Mobile Brand Header */}
           <div className="lg:hidden flex items-center justify-between pb-3 mb-3 border-b border-[#E3EBE2]">
-            <ConnectHubLogo size="sm" variant="light" showCHMark={true} />
+            <ConnectHubLogo size="sm" variant="light" />
             <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#E3EBE2] text-[#547A60] border border-[#D8E2D7]">
               {mode === 'login' ? 'Sign In' : 'Sign Up'}
             </span>

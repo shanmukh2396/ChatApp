@@ -10,7 +10,7 @@ const AuthBrandPanel = ({ mode = 'login' }) => {
     <div className="relative hidden lg:flex flex-col justify-between w-1/2 p-6 sm:p-8 xl:p-9 bg-[#E3EBE2] text-[#26332B] select-none border-r border-[#D8E2D7]">
       {/* ─── Top Bar: Logo with CH Mark & Switch Navigation ─────────────────── */}
       <div className="relative z-10 flex items-center justify-between">
-        <ConnectHubLogo size="md" variant="light" showTagline={false} showCHMark={true} />
+        <ConnectHubLogo size="md" variant="light" showTagline={false} />
 
         <div className="text-xs text-[#5C6D63] bg-white/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#D8E2D7] shadow-sm">
           <span>{isLogin ? "New here?" : "Joined us?"} </span>

@@ -92,7 +92,7 @@ const SignupPage = () => {
         {/* Header with ConnectHub Logo */}
         <div className="mb-3.5 sm:mb-4">
           <div className="hidden lg:block mb-2.5">
-            <ConnectHubLogo size="sm" variant="light" showTagline={false} showCHMark={true} />
+            <ConnectHubLogo size="sm" variant="light" showTagline={false} />
           </div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-[#26332B] tracking-tight">
             Create Your Account

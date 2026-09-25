@@ -5,21 +5,20 @@ const ConnectHubLogo = ({
   variant = 'light', // 'light' (on light backgrounds) or 'dark' (on dark surfaces)
   showWordmark = true,
   showTagline = false,
-  showCHMark = true,
   className = '',
 }) => {
   const iconSizes = {
-    sm: { box: 'w-7 h-7', svg: 'w-4 h-4', ch: 'text-[9px] px-1.5 py-0.5', text: 'text-base', sub: 'text-[9px]' },
-    md: { box: 'w-9 h-9', svg: 'w-4.5 h-4.5', ch: 'text-[10px] px-2 py-0.5', text: 'text-lg', sub: 'text-[10px]' },
-    lg: { box: 'w-11 h-11', svg: 'w-5.5 h-5.5', ch: 'text-xs px-2.5 py-0.5', text: 'text-xl', sub: 'text-xs' },
-    xl: { box: 'w-14 h-14', svg: 'w-7 h-7', ch: 'text-sm px-3 py-1', text: 'text-2xl', sub: 'text-xs' },
+    sm: { box: 'w-7 h-7', svg: 'w-4 h-4', text: 'text-base', sub: 'text-[9px]' },
+    md: { box: 'w-9 h-9', svg: 'w-4.5 h-4.5', text: 'text-lg', sub: 'text-[10px]' },
+    lg: { box: 'w-11 h-11', svg: 'w-5.5 h-5.5', text: 'text-xl', sub: 'text-xs' },
+    xl: { box: 'w-14 h-14', svg: 'w-7 h-7', text: 'text-2xl', sub: 'text-xs' },
   };
 
   const currentSize = iconSizes[size] || iconSizes.md;
   const isDark = variant === 'dark';
 
   return (
-    <div className={`inline-flex items-center gap-2 select-none ${className}`}>
+    <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
       {/* ─── Logo Icon Emblem ─────────────────────────────────────────────── */}
       <div
         className={`${currentSize.box} rounded-xl bg-[#547A60] p-[1px] shadow-sm shrink-0 flex items-center justify-center transition-transform duration-150 hover:scale-105`}
@@ -49,19 +48,6 @@ const ConnectHubLogo = ({
           </svg>
         </div>
       </div>
-
-      {/* ─── Compact "CH" Brand Mark Badge ───────────────────────────────── */}
-      {showCHMark && (
-        <span
-          className={`font-extrabold tracking-wider rounded-lg uppercase ${currentSize.ch} ${
-            isDark
-              ? 'bg-[#E3EBE2]/20 text-[#E3EBE2] border border-[#E3EBE2]/30'
-              : 'bg-[#E3EBE2] text-[#547A60] border border-[#D8E2D7]'
-          }`}
-        >
-          CH
-        </span>
-      )}
 
       {/* ─── Wordmark ──────────────────────────────────────────────────────── */}
       {showWordmark && (
@@ -95,4 +81,3 @@ const ConnectHubLogo = ({
 };
 
 export default ConnectHubLogo;
-

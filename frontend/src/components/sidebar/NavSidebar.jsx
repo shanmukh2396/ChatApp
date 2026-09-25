@@ -37,7 +37,7 @@ const NavSidebar = ({ activeTab = 'chats', onTabChange }) => {
           className="focus:outline-none transition-transform duration-200 hover:scale-105"
           title="ConnectHub"
         >
-          <ConnectHubLogo size="md" variant="light" showWordmark={false} showCHMark={true} />
+          <ConnectHubLogo size="md" variant="light" showWordmark={false} />
         </button>
 
         {/* ─── Main Navigation Items ───────────────────────────────────────── */}
