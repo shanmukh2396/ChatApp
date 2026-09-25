@@ -5,8 +5,8 @@ import AuthLayout from '../components/auth/AuthLayout';
 import AuthInput from '../components/auth/AuthInput';
 import PasswordInput from '../components/auth/PasswordInput';
 import AuthButton from '../components/auth/AuthButton';
+import ConnectHubLogo from '../components/common/ConnectHubLogo';
 import { Mail, LogIn, ArrowRight } from 'lucide-react';
-import toast from 'react-hot-toast';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -46,7 +46,6 @@ const LoginPage = () => {
       [name]: type === 'checkbox' ? checked : value,
     }));
 
-    // Clear error for field once user types
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
@@ -71,12 +70,15 @@ const LoginPage = () => {
   return (
     <AuthLayout mode="login">
       <div className="max-w-md mx-auto w-full">
-        {/* Header */}
+        {/* Right Panel Header: Logo & Greeting */}
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <div className="hidden lg:block mb-4">
+            <ConnectHubLogo size="md" variant="light" showTagline={false} />
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#222333] tracking-tight">
             Welcome Back!
           </h1>
-          <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">
+          <p className="text-sm text-[#9293A5] mt-1.5 leading-relaxed">
             Sign in to continue your conversations on ConnectHub.
           </p>
         </div>
@@ -89,7 +91,7 @@ const LoginPage = () => {
             name="email"
             label="Email Address"
             type="email"
-            placeholder="you@example.com"
+            placeholder="name@example.com"
             value={formData.email}
             onChange={handleChange}
             icon={Mail}
@@ -113,15 +115,15 @@ const LoginPage = () => {
             disabled={submitting}
           />
 
-          {/* Options: Remember Me */}
+          {/* Remember Me */}
           <div className="flex items-center justify-between pt-1">
-            <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-slate-600 font-medium">
+            <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-[#222333] font-medium">
               <input
                 type="checkbox"
                 name="rememberMe"
                 checked={formData.rememberMe}
                 onChange={handleChange}
-                className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 transition"
+                className="w-4 h-4 text-[#F20D3A] rounded border-slate-300 focus:ring-[#F20D3A] transition"
               />
               <span>Remember this device</span>
             </label>
@@ -135,7 +137,7 @@ const LoginPage = () => {
               loadingText="Signing in to ConnectHub..."
               icon={LogIn}
             >
-              Sign In to Account
+              Log In
             </AuthButton>
           </div>
         </form>
@@ -146,7 +148,7 @@ const LoginPage = () => {
             <div className="w-full border-t border-slate-200" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-3 text-slate-400 font-medium tracking-wider">
+            <span className="bg-white px-3 text-[#9293A5] font-semibold tracking-wider">
               or
             </span>
           </div>
@@ -154,13 +156,13 @@ const LoginPage = () => {
 
         {/* Switch to Signup */}
         <div className="text-center">
-          <p className="text-xs sm:text-sm text-slate-600">
+          <p className="text-xs sm:text-sm text-[#222333]">
             Don't have an account?{' '}
             <Link
               to="/signup"
-              className="font-semibold text-blue-600 hover:text-blue-700 hover:underline inline-flex items-center gap-1 transition-colors"
+              className="font-bold text-[#F20D3A] hover:text-[#D90B32] hover:underline inline-flex items-center gap-1 transition-colors"
             >
-              Create Account <ArrowRight className="w-3.5 h-3.5 inline" />
+              Sign Up <ArrowRight className="w-3.5 h-3.5 inline" />
             </Link>
           </p>
         </div>

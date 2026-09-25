@@ -5,8 +5,8 @@ import AuthLayout from '../components/auth/AuthLayout';
 import AuthInput from '../components/auth/AuthInput';
 import PasswordInput from '../components/auth/PasswordInput';
 import AuthButton from '../components/auth/AuthButton';
+import ConnectHubLogo from '../components/common/ConnectHubLogo';
 import { User, Mail, UserPlus, ArrowRight } from 'lucide-react';
-import toast from 'react-hot-toast';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -61,7 +61,6 @@ const SignupPage = () => {
       [name]: value,
     }));
 
-    // Clear field error on change
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
@@ -90,13 +89,16 @@ const SignupPage = () => {
   return (
     <AuthLayout mode="signup">
       <div className="max-w-md mx-auto w-full">
-        {/* Header */}
+        {/* Header with ConnectHub Logo */}
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <div className="hidden lg:block mb-4">
+            <ConnectHubLogo size="md" variant="light" showTagline={false} />
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#222333] tracking-tight">
             Create Your Account
           </h1>
-          <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">
-            Join ConnectHub and stay connected with your team.
+          <p className="text-sm text-[#9293A5] mt-1.5 leading-relaxed">
+            Join ConnectHub and stay connected with your friends & team.
           </p>
         </div>
 
@@ -108,7 +110,7 @@ const SignupPage = () => {
             name="name"
             label="Full Name"
             type="text"
-            placeholder="e.g. Alex Rivers"
+            placeholder="e.g. John Doe"
             value={formData.name}
             onChange={handleChange}
             icon={User}
@@ -124,7 +126,7 @@ const SignupPage = () => {
             name="email"
             label="Email Address"
             type="email"
-            placeholder="you@example.com"
+            placeholder="name@example.com"
             value={formData.email}
             onChange={handleChange}
             icon={Mail}
@@ -139,7 +141,7 @@ const SignupPage = () => {
             id="password"
             name="password"
             label="Password"
-            placeholder="Create a strong password (min 6 chars)"
+            placeholder="Create password (min 6 characters)"
             value={formData.password}
             onChange={handleChange}
             error={errors.password}
@@ -182,7 +184,7 @@ const SignupPage = () => {
             <div className="w-full border-t border-slate-200" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-3 text-slate-400 font-medium tracking-wider">
+            <span className="bg-white px-3 text-[#9293A5] font-semibold tracking-wider">
               or
             </span>
           </div>
@@ -190,11 +192,11 @@ const SignupPage = () => {
 
         {/* Switch to Login */}
         <div className="text-center">
-          <p className="text-xs sm:text-sm text-slate-600">
+          <p className="text-xs sm:text-sm text-[#222333]">
             Already have an account?{' '}
             <Link
               to="/login"
-              className="font-semibold text-blue-600 hover:text-blue-700 hover:underline inline-flex items-center gap-1 transition-colors"
+              className="font-bold text-[#F20D3A] hover:text-[#D90B32] hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Log In <ArrowRight className="w-3.5 h-3.5 inline" />
             </Link>

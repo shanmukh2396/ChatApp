@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '../../api/axios';
 import { useAuth } from '../../context/AuthContext';
 import { useChat } from '../../context/ChatContext';
-import { FiUsers, FiX, FiUserMinus, FiLogOut, FiShield } from 'react-icons/fi';
+import { Users, X, UserMinus, LogOut, ShieldCheck } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const GroupDetailsModal = () => {
@@ -68,39 +68,40 @@ const GroupDetailsModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
-      <div className="card w-full max-w-md bg-surface-card border-surface-border shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+      <div className="w-full max-w-md bg-[#171827] border border-[#202235] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-surface-border">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <FiUsers className="text-primary-400" /> Group Info
+        <div className="flex items-center justify-between p-5 border-b border-[#202235]">
+          <h2 className="text-lg font-extrabold text-white flex items-center gap-2.5">
+            <Users className="w-5 h-5 text-[#F20D3A]" />
+            <span>Group Info</span>
           </h2>
           <button
             onClick={() => setIsGroupDetailsOpen(false)}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-input transition-colors"
+            className="p-2 rounded-xl text-[#9293A5] hover:text-white hover:bg-[#202235] transition-colors"
           >
-            <FiX className="w-5 h-5" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Group Profile Header */}
-        <div className="p-6 flex flex-col items-center border-b border-surface-border bg-surface/40">
+        <div className="p-6 flex flex-col items-center border-b border-[#202235] bg-[#131420]/60">
           <img
             src={activeConversation.groupAvatar}
             alt={activeConversation.name}
-            className="w-20 h-20 avatar mb-3 border-2 border-primary-500/50 shadow-lg"
+            className="w-20 h-20 rounded-3xl object-cover mb-3 border-2 border-[#F20D3A]/50 shadow-xl"
           />
-          <h3 className="text-lg font-bold text-white text-center">
+          <h3 className="text-lg font-extrabold text-white text-center">
             {activeConversation.name}
           </h3>
-          <p className="text-xs text-slate-400 mt-1">
-            {activeConversation.participants?.length || 0} members
+          <p className="text-xs text-[#9293A5] mt-1 font-semibold">
+            {activeConversation.participants?.length || 0} active members
           </p>
         </div>
 
         {/* Members List */}
         <div className="p-4 flex-1 overflow-y-auto">
-          <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
+          <h4 className="text-xs font-bold text-[#9293A5] uppercase tracking-wider mb-3">
             Group Members
           </h4>
           <div className="space-y-2">
@@ -113,33 +114,33 @@ const GroupDetailsModal = () => {
               return (
                 <div
                   key={member._id}
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-surface-input/50 border border-surface-border/50"
+                  className="flex items-center justify-between p-3 rounded-2xl bg-[#202235]/60 border border-white/5"
                 >
                   <div className="flex items-center gap-3">
                     <img
                       src={member.avatar}
                       alt={member.name}
-                      className="w-9 h-9 avatar"
+                      className="w-9 h-9 rounded-xl object-cover"
                     />
                     <div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-sm font-semibold text-white">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-bold text-white">
                           {member.name}
                         </span>
                         {isCurrentUser && (
-                          <span className="text-[10px] text-primary-400 bg-primary-950/60 px-1.5 py-0.5 rounded border border-primary-800/60">
+                          <span className="text-[10px] text-[#FF8BA2] bg-[#F20D3A]/20 px-2 py-0.5 rounded-md font-bold border border-[#F20D3A]/30">
                             You
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-slate-400">{member.email}</p>
+                      <p className="text-xs text-[#9293A5]">{member.email}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2">
                     {memberIsAdmin && (
-                      <span className="inline-flex items-center gap-1 text-[11px] text-amber-400 bg-amber-950/40 px-2 py-0.5 rounded-full border border-amber-500/30">
-                        <FiShield className="w-3 h-3" /> Admin
+                      <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-400 bg-amber-950/40 px-2.5 py-1 rounded-full border border-amber-500/30">
+                        <ShieldCheck className="w-3 h-3" /> Admin
                       </span>
                     )}
                     {isAdmin && !memberIsAdmin && (
@@ -147,9 +148,9 @@ const GroupDetailsModal = () => {
                         onClick={() => handleRemoveMember(member._id)}
                         disabled={loading}
                         title="Remove member"
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-950/30 transition-colors"
+                        className="p-1.5 rounded-xl text-[#9293A5] hover:text-[#F20D3A] hover:bg-[#F20D3A]/10 transition-colors"
                       >
-                        <FiUserMinus className="w-4 h-4" />
+                        <UserMinus className="w-4 h-4" />
                       </button>
                     )}
                   </div>
@@ -159,14 +160,15 @@ const GroupDetailsModal = () => {
           </div>
         </div>
 
-        {/* Footer Actions */}
-        <div className="p-4 border-t border-surface-border bg-surface-card flex justify-between items-center">
+        {/* Footer Action: Leave Group */}
+        <div className="p-4 border-t border-[#202235] bg-[#171827]">
           <button
             onClick={handleLeaveGroup}
             disabled={loading}
-            className="btn-danger w-full py-2.5 text-sm"
+            className="w-full py-3 rounded-2xl bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 font-bold text-xs flex items-center justify-center gap-2 transition-all"
           >
-            <FiLogOut className="w-4 h-4" /> Leave Group
+            <LogOut className="w-4 h-4" />
+            <span>Leave Group Channel</span>
           </button>
         </div>
       </div>

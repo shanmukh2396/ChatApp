@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useChat } from '../../context/ChatContext';
 import { useSocket } from '../../context/SocketContext';
 import { formatLastSeen } from '../../utils/formatDate';
-import { FiArrowLeft, FiInfo, FiUsers } from 'react-icons/fi';
+import { ArrowLeft, Info, Users, Shield } from 'lucide-react';
 
 const ChatHeader = () => {
   const { user } = useAuth();
@@ -27,23 +27,22 @@ const ChatHeader = () => {
       );
 
   const isRecipientOnline = recipient ? onlineUsers.has(recipient._id) : false;
-
   const activeTyping = typingMap[activeConversation._id];
 
   return (
-    <div className="flex items-center justify-between p-3 sm:px-4 border-b border-surface-border bg-surface-card z-10">
-      {/* Left: Back button (mobile) + Avatar + Info */}
-      <div className="flex items-center gap-3 min-w-0">
+    <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-[#202235] bg-[#171827] z-10 shrink-0">
+      {/* Left: Mobile Back Button + Avatar + Name & Status */}
+      <div className="flex items-center gap-3.5 min-w-0">
         {/* Mobile Back to Conversation List Button */}
         <button
           onClick={() => selectConversation(null)}
-          className="md:hidden p-2 rounded-xl text-slate-400 hover:text-white hover:bg-surface-input transition-colors -ml-1"
-          title="Back to chats"
+          className="md:hidden p-2 rounded-xl text-[#9293A5] hover:text-white hover:bg-[#202235] transition-colors -ml-1.5"
+          title="Back to conversations"
         >
-          <FiArrowLeft className="w-5 h-5" />
+          <ArrowLeft className="w-5 h-5" />
         </button>
 
-        {/* Avatar */}
+        {/* Avatar with Presence Indicator */}
         <div className="relative shrink-0">
           <img
             src={
@@ -52,36 +51,41 @@ const ChatHeader = () => {
                 : recipient?.avatar || 'https://ui-avatars.com/api/?name=Chat'
             }
             alt={isGroup ? activeConversation.name : recipient?.name}
-            className="w-10 h-10 avatar border border-surface-border"
+            className="w-10 h-10 rounded-2xl object-cover border-2 border-[#202235]"
           />
-          {!isGroup && isRecipientOnline && <span className="online-dot" />}
+          {!isGroup && isRecipientOnline && (
+            <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-[#171827]" />
+          )}
         </div>
 
-        {/* Title and Subtitle */}
+        {/* Conversation Title & Presence Info */}
         <div className="min-w-0">
-          <h3 className="text-sm sm:text-base font-bold text-white truncate">
+          <h3 className="text-sm sm:text-base font-extrabold text-white truncate tracking-tight">
             {isGroup ? activeConversation.name : recipient?.name || 'Chat'}
           </h3>
 
-          {/* Status / Typing */}
           <div className="text-xs truncate">
             {activeTyping ? (
-              <span className="text-primary-400 font-medium flex items-center gap-1">
+              <span className="text-[#FF8BA2] font-semibold flex items-center gap-1">
                 <span>{activeTyping.userName} is typing</span>
                 <span className="inline-flex gap-0.5">
-                  <span className="typing-dot"></span>
-                  <span className="typing-dot [animation-delay:0.2s]"></span>
-                  <span className="typing-dot [animation-delay:0.4s]"></span>
+                  <span className="w-1 h-1 bg-[#F20D3A] rounded-full animate-bounce"></span>
+                  <span className="w-1 h-1 bg-[#F20D3A] rounded-full animate-bounce [animation-delay:0.15s]"></span>
+                  <span className="w-1 h-1 bg-[#F20D3A] rounded-full animate-bounce [animation-delay:0.3s]"></span>
                 </span>
               </span>
             ) : isGroup ? (
-              <span className="text-slate-400">
-                {activeConversation.participants?.length || 0} members
+              <span className="text-[#9293A5] flex items-center gap-1 font-medium">
+                <Users className="w-3 h-3 text-[#F20D3A]" />
+                <span>{activeConversation.participants?.length || 0} members</span>
               </span>
             ) : isRecipientOnline ? (
-              <span className="text-emerald-400 font-medium">Online</span>
+              <span className="text-emerald-400 font-bold flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Online</span>
+              </span>
             ) : (
-              <span className="text-slate-400">
+              <span className="text-[#9293A5]">
                 {formatLastSeen(recipient?.lastSeen)}
               </span>
             )}
@@ -89,14 +93,15 @@ const ChatHeader = () => {
         </div>
       </div>
 
-      {/* Right Action: Group Info */}
+      {/* Right Actions: Group Info Modal Trigger */}
       {isGroup && (
         <button
           onClick={() => setIsGroupDetailsOpen(true)}
-          className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-surface-input transition-colors"
-          title="Group Info"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#202235] hover:bg-[#2c2f48] text-slate-200 hover:text-white border border-white/5 text-xs font-semibold transition-all duration-200"
+          title="Group Details & Members"
         >
-          <FiInfo className="w-5 h-5" />
+          <Info className="w-4 h-4 text-[#F20D3A]" />
+          <span className="hidden sm:inline">Group Info</span>
         </button>
       )}
     </div>

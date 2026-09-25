@@ -18,7 +18,7 @@ const PasswordInput = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  // Calculate simple password strength
+  // Password strength gauge
   const getStrength = (pass) => {
     if (!pass) return { score: 0, label: '', color: 'bg-slate-200' };
     let score = 0;
@@ -40,12 +40,12 @@ const PasswordInput = ({
         <div className="flex items-center justify-between mb-1.5">
           <label
             htmlFor={id || name}
-            className="block text-xs font-semibold text-slate-700 tracking-wide"
+            className="block text-xs font-bold text-[#222333] tracking-wide"
           >
-            {label} {required && <span className="text-red-500">*</span>}
+            {label} {required && <span className="text-[#F20D3A]">*</span>}
           </label>
           {showStrength && value && (
-            <span className={`text-[11px] font-medium ${
+            <span className={`text-[11px] font-bold ${
               strength.score === 1 ? 'text-red-500' :
               strength.score === 2 ? 'text-amber-600' : 'text-emerald-600'
             }`}>
@@ -55,9 +55,9 @@ const PasswordInput = ({
         </div>
       )}
 
-      <div className="relative rounded-xl shadow-xs">
-        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-          <Lock className="w-4 h-4 transition-colors" />
+      <div className="relative rounded-xl shadow-sm">
+        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#9293A5]">
+          <Lock className="w-4 h-4 transition-colors group-focus-within:text-[#F20D3A]" />
         </div>
 
         <input
@@ -71,13 +71,13 @@ const PasswordInput = ({
           required={required}
           autoComplete={autoComplete}
           disabled={disabled}
-          className={`w-full text-sm text-slate-900 bg-white placeholder-slate-400 
+          className={`w-full text-sm text-[#222333] bg-white placeholder-[#9293A5] 
             border rounded-xl py-2.5 pl-10 pr-11 transition-all duration-200 
             outline-none focus:ring-4 
             ${
               error
                 ? 'border-red-400 focus:border-red-500 focus:ring-red-500/15 text-red-900'
-                : 'border-slate-200 hover:border-slate-300 focus:border-blue-600 focus:ring-blue-600/10'
+                : 'border-slate-200 hover:border-slate-300 focus:border-[#F20D3A] focus:ring-[#F20D3A]/10'
             }
             disabled:bg-slate-50 disabled:text-slate-400 disabled:cursor-not-allowed
             ${className}`}
@@ -88,7 +88,7 @@ const PasswordInput = ({
           tabIndex={-1}
           onClick={() => setShowPassword(!showPassword)}
           aria-label={showPassword ? 'Hide password' : 'Show password'}
-          className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none transition-colors"
+          className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#9293A5] hover:text-[#222333] focus:outline-none transition-colors"
         >
           {showPassword ? (
             <EyeOff className="w-4 h-4" />
