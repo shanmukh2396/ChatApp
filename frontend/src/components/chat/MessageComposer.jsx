@@ -23,7 +23,6 @@ const MessageComposer = () => {
   const handleTextChange = (e) => {
     setText(e.target.value);
 
-    // Emit typing indicator to room
     if (socket && activeConversation) {
       socket.emit('typing', {
         conversationId: activeConversation._id,
@@ -101,33 +100,33 @@ const MessageComposer = () => {
   };
 
   return (
-    <div className="p-3 sm:p-4 bg-[#0c2417]/90 backdrop-blur-xl border-t border-[#18422b] shrink-0">
+    <div className="p-3 sm:p-4 bg-white/80 backdrop-blur-xl border-t border-sage-300 shrink-0">
       {/* ─── File Attachment Preview Bar ─────────────────────────────────── */}
       {selectedFile && (
-        <div className="flex items-center gap-3 p-3 mb-3 rounded-2xl bg-[#18422b] border border-white/5 animate-slide-up shadow-lg">
+        <div className="flex items-center gap-3 p-3 mb-3 rounded-2xl bg-sage-100 border border-sage-300 animate-slide-up shadow-sm">
           {filePreview ? (
             <img
               src={filePreview}
               alt="Preview"
-              className="w-12 h-12 rounded-xl object-cover border border-white/10"
+              className="w-12 h-12 rounded-xl object-cover border border-sage-300"
             />
           ) : (
-            <div className="w-10 h-10 rounded-xl bg-[#10B981]/20 text-[#6ee7b7] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-forest/10 text-forest flex items-center justify-center">
               <FileText className="w-5 h-5" />
             </div>
           )}
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold text-white truncate">
+            <p className="text-xs font-bold text-charcoal truncate">
               {selectedFile.name}
             </p>
-            <p className="text-[10px] text-[#9bb8a8]">
+            <p className="text-[10px] text-charcoal-50">
               {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
             </p>
           </div>
           <button
             type="button"
             onClick={clearSelectedFile}
-            className="p-1.5 rounded-full text-[#9bb8a8] hover:text-white hover:bg-[#0c2417] transition-colors"
+            className="p-1.5 rounded-full text-charcoal-50 hover:text-charcoal hover:bg-sage-200 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -149,7 +148,7 @@ const MessageComposer = () => {
           type="button"
           onClick={() => fileInputRef.current?.click()}
           title="Attach photo or document"
-          className="p-2.5 rounded-xl bg-[#18422b] text-[#9bb8a8] hover:text-[#10B981] hover:bg-[#18422b]/80 border border-white/5 transition-all duration-200 shrink-0"
+          className="p-2.5 rounded-xl bg-sage-100 text-charcoal-100 hover:text-forest hover:bg-sage-200 border border-sage-300 transition-all duration-200 shrink-0"
         >
           <Paperclip className="w-5 h-5" />
         </button>
@@ -161,14 +160,14 @@ const MessageComposer = () => {
           value={text}
           onChange={handleTextChange}
           disabled={uploading}
-          className="flex-1 bg-[#071a0f] text-white placeholder-[#9bb8a8] border border-[#18422b] rounded-xl px-4 py-2.5 text-sm transition-all duration-200 focus:outline-none focus:border-[#10B981] focus:ring-2 focus:ring-[#10B981]/20 disabled:opacity-50"
+          className="flex-1 bg-white text-charcoal placeholder-charcoal-50 border border-sage-300 rounded-xl px-4 py-2.5 text-sm transition-all duration-200 focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20 disabled:opacity-50"
         />
 
         {/* Send Button */}
         <button
           type="submit"
           disabled={(!text.trim() && !selectedFile) || uploading}
-          className="p-2.5 sm:px-5 rounded-xl bg-[#10B981] hover:bg-[#059669] active:bg-[#047857] text-white font-bold text-sm shadow-md shadow-[#10B981]/25 transition-all duration-200 active:scale-[0.98] shrink-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
+          className="p-2.5 sm:px-5 rounded-xl bg-forest hover:bg-forest-600 active:bg-forest-700 text-white font-bold text-sm shadow-sm transition-all duration-200 active:scale-[0.98] shrink-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
         >
           {uploading ? (
             <Loader2 className="w-5 h-5 animate-spin" />
@@ -185,4 +184,3 @@ const MessageComposer = () => {
 };
 
 export default MessageComposer;
-

@@ -2,7 +2,7 @@ import React from 'react';
 
 const ConnectHubLogo = ({
   size = 'md',
-  variant = 'dark', // 'dark' (for dark surface) or 'light' (for white surface)
+  variant = 'light', // 'light' (on light backgrounds) or 'dark' (on dark surfaces)
   showWordmark = true,
   showTagline = false,
   showCHMark = true,
@@ -10,58 +10,42 @@ const ConnectHubLogo = ({
 }) => {
   const iconSizes = {
     sm: { box: 'w-7 h-7', svg: 'w-4 h-4', ch: 'text-[9px] px-1.5 py-0.5', text: 'text-base', sub: 'text-[9px]' },
-    md: { box: 'w-10 h-10', svg: 'w-5 h-5', ch: 'text-[11px] px-2 py-0.5', text: 'text-xl', sub: 'text-[10px]' },
-    lg: { box: 'w-12 h-12', svg: 'w-6 h-6', ch: 'text-xs px-2.5 py-0.5', text: 'text-2xl', sub: 'text-xs' },
-    xl: { box: 'w-16 h-16', svg: 'w-8 h-8', ch: 'text-sm px-3 py-1', text: 'text-3xl', sub: 'text-xs' },
+    md: { box: 'w-9 h-9', svg: 'w-4.5 h-4.5', ch: 'text-[10px] px-2 py-0.5', text: 'text-lg', sub: 'text-[10px]' },
+    lg: { box: 'w-11 h-11', svg: 'w-5.5 h-5.5', ch: 'text-xs px-2.5 py-0.5', text: 'text-xl', sub: 'text-xs' },
+    xl: { box: 'w-14 h-14', svg: 'w-7 h-7', ch: 'text-sm px-3 py-1', text: 'text-2xl', sub: 'text-xs' },
   };
 
   const currentSize = iconSizes[size] || iconSizes.md;
-  const isLight = variant === 'light';
+  const isDark = variant === 'dark';
 
   return (
-    <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
+    <div className={`inline-flex items-center gap-2 select-none ${className}`}>
       {/* ─── Logo Icon Emblem ─────────────────────────────────────────────── */}
       <div
-        className={`${currentSize.box} rounded-2xl bg-gradient-to-tr from-[#047857] via-[#10B981] to-[#34D399] p-[1.5px] shadow-lg shadow-[#10B981]/20 shrink-0 flex items-center justify-center transition-transform duration-200 hover:scale-105`}
+        className={`${currentSize.box} rounded-xl bg-[#547A60] p-[1px] shadow-sm shrink-0 flex items-center justify-center transition-transform duration-150 hover:scale-105`}
       >
-        <div className="w-full h-full bg-[#0b2416] rounded-[14px] flex items-center justify-center relative overflow-hidden">
-          {/* Subtle inner radial glow */}
-          <div className="absolute inset-0 bg-[#10B981]/15 rounded-full blur-sm" />
-
+        <div className="w-full h-full bg-[#547A60] rounded-[11px] flex items-center justify-center relative overflow-hidden">
           {/* SVG ConnectHub Symbol: Connected Messenger Nodes */}
           <svg
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className={`${currentSize.svg} relative z-10`}
+            className={`${currentSize.svg} text-white`}
           >
             {/* Main Chat Node */}
             <path
               d="M12 3C7.03 3 3 6.8 3 11.5C3 13.9 4.05 16.05 5.75 17.6L5 21L8.7 19.8C9.72 20.25 10.83 20.5 12 20.5C16.97 20.5 21 16.7 21 12C21 7.3 16.97 3 12 3Z"
-              fill="url(#logoGreenGrad)"
+              fill="#D5E5D5"
             />
             {/* Connected Hub Intersect */}
-            <circle cx="9.5" cy="11.5" r="1.5" fill="#FFFFFF" />
-            <circle cx="14.5" cy="11.5" r="1.5" fill="#FFFFFF" />
+            <circle cx="9.5" cy="11.5" r="1.5" fill="#26332B" />
+            <circle cx="14.5" cy="11.5" r="1.5" fill="#26332B" />
             <path
               d="M9.5 11.5 H14.5"
-              stroke="#FFFFFF"
+              stroke="#26332B"
               strokeWidth="1.2"
               strokeLinecap="round"
             />
-            <defs>
-              <linearGradient
-                id="logoGreenGrad"
-                x1="3"
-                y1="3"
-                x2="21"
-                y2="21"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#34D399" />
-                <stop offset="1" stopColor="#059669" />
-              </linearGradient>
-            </defs>
           </svg>
         </div>
       </div>
@@ -69,10 +53,10 @@ const ConnectHubLogo = ({
       {/* ─── Compact "CH" Brand Mark Badge ───────────────────────────────── */}
       {showCHMark && (
         <span
-          className={`font-black tracking-widest rounded-lg uppercase ${currentSize.ch} ${
-            isLight
-              ? 'bg-[#10B981]/15 text-[#059669] border border-[#10B981]/30'
-              : 'bg-[#10B981]/20 text-[#6ee7b7] border border-[#10B981]/40 shadow-xs shadow-[#10B981]/20'
+          className={`font-extrabold tracking-wider rounded-lg uppercase ${currentSize.ch} ${
+            isDark
+              ? 'bg-[#E3EBE2]/20 text-[#E3EBE2] border border-[#E3EBE2]/30'
+              : 'bg-[#E3EBE2] text-[#547A60] border border-[#D8E2D7]'
           }`}
         >
           CH
@@ -85,13 +69,13 @@ const ConnectHubLogo = ({
           <div className="flex items-center">
             <span
               className={`font-black tracking-tight ${currentSize.text} ${
-                isLight ? 'text-[#0f2d1c]' : 'text-white'
+                isDark ? 'text-white' : 'text-[#26332B]'
               }`}
             >
               Connect
             </span>
             <span
-              className={`font-black tracking-tight ${currentSize.text} text-[#10B981] ml-0.5`}
+              className={`font-black tracking-tight ${currentSize.text} text-[#547A60] ml-0.5`}
             >
               Hub
             </span>
@@ -99,7 +83,7 @@ const ConnectHubLogo = ({
 
           {showTagline && (
             <span
-              className={`${currentSize.sub} font-semibold uppercase tracking-wider text-[#9bb8a8] -mt-0.5`}
+              className={`${currentSize.sub} font-semibold uppercase tracking-wider text-[#5C6D63] -mt-0.5`}
             >
               Connect. Chat. Share.
             </span>
@@ -111,3 +95,4 @@ const ConnectHubLogo = ({
 };
 
 export default ConnectHubLogo;
+

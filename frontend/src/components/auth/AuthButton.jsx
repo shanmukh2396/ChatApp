@@ -19,12 +19,11 @@ const AuthButton = ({
       onClick={onClick}
       disabled={isDisabled}
       className={`w-full inline-flex items-center justify-center gap-2 
-        bg-gradient-to-r from-[#059669] via-[#10B981] to-[#047857] 
-        hover:from-[#047857] hover:via-[#059669] hover:to-[#065f46] 
-        text-white font-bold text-sm py-3 px-5 rounded-xl
-        shadow-lg shadow-[#10B981]/25 hover:shadow-xl hover:shadow-[#10B981]/35
-        transition-all duration-200 active:scale-[0.99]
-        focus:outline-none focus:ring-4 focus:ring-[#10B981]/20
+        bg-[#547A60] hover:bg-[#45664F] active:bg-[#3A5643] 
+        text-white font-bold text-xs sm:text-sm py-2.5 sm:py-3 px-4 rounded-xl
+        shadow-sm hover:shadow
+        transition-all duration-150 active:scale-[0.99]
+        focus:outline-none focus:ring-2 focus:ring-[#547A60] focus:ring-offset-1
         disabled:opacity-60 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100
         ${className}`}
     >
@@ -44,3 +43,4 @@ const AuthButton = ({
 };
 
 export default AuthButton;
+

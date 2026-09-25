@@ -7,7 +7,6 @@ const MessageBubble = ({ message, isGroupChat }) => {
   const { user } = useAuth();
   const isSelf = message.sender?._id === user?._id || message.sender === user?._id;
 
-  // Read receipt status
   const isRead = message.readBy && message.readBy.length > 1;
 
   return (
@@ -18,7 +17,7 @@ const MessageBubble = ({ message, isGroupChat }) => {
     >
       {/* Sender name in group chats */}
       {isGroupChat && !isSelf && (
-        <span className="text-[11px] font-bold text-[#6ee7b7] mb-1 ml-2">
+        <span className="text-[11px] font-bold text-forest mb-1 ml-2">
           {message.sender?.name || 'User'}
         </span>
       )}
@@ -26,8 +25,8 @@ const MessageBubble = ({ message, isGroupChat }) => {
       <div
         className={`relative transition-all duration-150 ${
           isSelf
-            ? 'bg-[#059669] text-white rounded-2xl rounded-br-xs px-4 py-2.5 max-w-xs sm:max-w-sm lg:max-w-md shadow-md shadow-[#059669]/20'
-            : 'bg-[#18422b] text-slate-100 rounded-2xl rounded-bl-xs px-4 py-2.5 max-w-xs sm:max-w-sm lg:max-w-md border border-white/5 shadow-sm'
+            ? 'bg-mint text-charcoal rounded-2xl rounded-br-sm px-4 py-2.5 max-w-xs sm:max-w-sm lg:max-w-md shadow-sm'
+            : 'bg-white text-charcoal rounded-2xl rounded-bl-sm px-4 py-2.5 max-w-xs sm:max-w-sm lg:max-w-md border border-sage-300 shadow-sm'
         }`}
       >
         {/* 1. Image Attachment */}
@@ -53,24 +52,24 @@ const MessageBubble = ({ message, isGroupChat }) => {
           <div
             className={`flex items-center gap-3 p-2.5 rounded-xl mb-1.5 min-w-[220px] ${
               isSelf
-                ? 'bg-black/20 border border-white/10'
-                : 'bg-[#0c2417] border border-white/5'
+                ? 'bg-forest/10 border border-forest/20'
+                : 'bg-sage-100 border border-sage-300'
             }`}
           >
             <div
               className={`p-2.5 rounded-xl ${
-                isSelf ? 'bg-white/20 text-white' : 'bg-[#10B981]/20 text-[#6ee7b7]'
+                isSelf ? 'bg-forest/20 text-forest' : 'bg-sage-200 text-forest'
               }`}
             >
               <FileText className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-bold truncate text-white">
+              <p className="text-xs font-bold truncate text-charcoal">
                 {message.attachment.fileName || 'Attachment'}
               </p>
               <p
                 className={`text-[10px] ${
-                  isSelf ? 'text-white/80' : 'text-[#9bb8a8]'
+                  isSelf ? 'text-charcoal/70' : 'text-charcoal-50'
                 }`}
               >
                 {formatFileSize(message.attachment.fileSize)}
@@ -81,7 +80,7 @@ const MessageBubble = ({ message, isGroupChat }) => {
               download={message.attachment.fileName}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors"
+              className="p-2 rounded-xl bg-forest/10 hover:bg-forest/20 text-forest transition-colors"
               title="Download file"
             >
               <Download className="w-4 h-4" />
@@ -99,7 +98,7 @@ const MessageBubble = ({ message, isGroupChat }) => {
         {/* 4. Timestamp & Read Checkmarks */}
         <div
           className={`flex items-center gap-1.5 mt-1 text-[10px] font-semibold select-none ${
-            isSelf ? 'text-white/80 justify-end' : 'text-[#9bb8a8] justify-start'
+            isSelf ? 'text-charcoal/60 justify-end' : 'text-charcoal-50 justify-start'
           }`}
         >
           <span>{formatMessageTime(message.createdAt)}</span>
@@ -107,9 +106,9 @@ const MessageBubble = ({ message, isGroupChat }) => {
           {isSelf && (
             <span className="inline-flex items-center">
               {isRead ? (
-                <CheckCheck className="w-3.5 h-3.5 text-emerald-200" title="Seen" />
+                <CheckCheck className="w-3.5 h-3.5 text-forest" title="Seen" />
               ) : (
-                <Check className="w-3.5 h-3.5 text-emerald-100/70" title="Sent" />
+                <Check className="w-3.5 h-3.5 text-charcoal/40" title="Sent" />
               )}
             </span>
           )}

@@ -13,19 +13,19 @@ const ChatDashboard = () => {
   const [filterTab, setFilterTab] = useState('all');
 
   return (
-    <div className="flex h-screen w-full bg-[#071a0f] overflow-hidden relative">
-      {/* ─── Animated PrismaticBurst Ambient Background Effect ───────────── */}
+    <div className="flex h-screen w-full bg-[#F4F6F2] overflow-hidden relative">
+      {/* ─── Animated PrismaticBurst Subtle Sage Background ───────────────── */}
       <PrismaticBurst
-        color1="#042f1a"
-        color2="#064e3b"
-        color3="#059669"
-        color4="#10b981"
-        speed={0.2}
-        intensity={0.45}
-        rays={14.0}
-        grain={0.03}
-        mouseInfluence={0.2}
-        opacity={0.35}
+        color1="#547A60"
+        color2="#E3EBE2"
+        color3="#D5E5D5"
+        color4="#F4F6F2"
+        speed={0.12}
+        intensity={0.25}
+        rays={8.0}
+        grain={0.01}
+        mouseInfluence={0.1}
+        opacity={0.25}
       />
 
       {/* ─── Column 1: Slim Left Navigation Bar (Desktop) ────────────────── */}
@@ -58,4 +58,5 @@ const ChatDashboard = () => {
 };
 
 export default ChatDashboard;
+
 

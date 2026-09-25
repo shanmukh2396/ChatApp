@@ -90,20 +90,20 @@ const SignupPage = () => {
     <AuthLayout mode="signup">
       <div className="max-w-md mx-auto w-full">
         {/* Header with ConnectHub Logo */}
-        <div className="mb-6 sm:mb-8">
-          <div className="hidden lg:block mb-4">
-            <ConnectHubLogo size="md" variant="light" showTagline={false} showCHMark={true} />
+        <div className="mb-3.5 sm:mb-4">
+          <div className="hidden lg:block mb-2.5">
+            <ConnectHubLogo size="sm" variant="light" showTagline={false} showCHMark={true} />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#222333] tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-[#26332B] tracking-tight">
             Create Your Account
           </h1>
-          <p className="text-sm text-[#9293A5] mt-1.5 leading-relaxed">
-            Join ConnectHub and stay connected with your friends & team.
+          <p className="text-xs sm:text-sm text-[#5C6D63] mt-0.5 leading-relaxed">
+            Join ConnectHub and connect with your team.
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+        <form onSubmit={handleSubmit} className="space-y-2.5 sm:space-y-3" noValidate>
           {/* Full Name */}
           <AuthInput
             id="name"
@@ -141,7 +141,7 @@ const SignupPage = () => {
             id="password"
             name="password"
             label="Password"
-            placeholder="Create password (min 6 characters)"
+            placeholder="Min. 6 characters"
             value={formData.password}
             onChange={handleChange}
             error={errors.password}
@@ -156,7 +156,7 @@ const SignupPage = () => {
             id="confirmPassword"
             name="confirmPassword"
             label="Confirm Password"
-            placeholder="Re-enter your password"
+            placeholder="Re-enter password"
             value={formData.confirmPassword}
             onChange={handleChange}
             error={errors.confirmPassword}
@@ -166,11 +166,11 @@ const SignupPage = () => {
           />
 
           {/* Submit Button */}
-          <div className="pt-2">
+          <div className="pt-1">
             <AuthButton
               type="submit"
               loading={submitting}
-              loadingText="Creating your ConnectHub account..."
+              loadingText="Creating your account..."
               icon={UserPlus}
             >
               Create Account
@@ -179,12 +179,12 @@ const SignupPage = () => {
         </form>
 
         {/* Divider */}
-        <div className="relative my-6">
+        <div className="relative my-3">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-slate-200" />
+            <div className="w-full border-t border-[#D8E2D7]" />
           </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-3 text-[#9293A5] font-semibold tracking-wider">
+          <div className="relative flex justify-center text-[10px] uppercase">
+            <span className="bg-white px-2.5 text-[#809187] font-semibold tracking-wider">
               or
             </span>
           </div>
@@ -192,13 +192,13 @@ const SignupPage = () => {
 
         {/* Switch to Login */}
         <div className="text-center">
-          <p className="text-xs sm:text-sm text-[#222333]">
+          <p className="text-xs text-[#26332B]">
             Already have an account?{' '}
             <Link
               to="/login"
-              className="font-bold text-[#059669] hover:text-[#047857] hover:underline inline-flex items-center gap-1 transition-colors"
+              className="font-bold text-[#547A60] hover:underline inline-flex items-center gap-1 transition-colors"
             >
-              Log In <ArrowRight className="w-3.5 h-3.5 inline" />
+              Log In <ArrowRight className="w-3 h-3 inline" />
             </Link>
           </p>
         </div>
@@ -208,3 +208,4 @@ const SignupPage = () => {
 };
 
 export default SignupPage;
+

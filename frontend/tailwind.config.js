@@ -7,60 +7,84 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50:  '#ecfdf5',
-          100: '#d1fae5',
-          200: '#a7f3d0',
-          300: '#6ee7b7',
-          400: '#34d399',
-          500: '#10B981', // Emerald Green Primary
-          600: '#059669', // Hover Emerald
-          700: '#047857', // Dark Emerald
-          800: '#065f46',
-          900: '#064e3b',
-          950: '#022c22',
-          DEFAULT: '#10B981',
+        warm: {
+          50:  '#FAFCF9',
+          100: '#F4F6F2', // Warm off-white main background
+          200: '#EAEFE8',
+          DEFAULT: '#F4F6F2',
         },
-        primary: {
-          50:  '#ecfdf5',
-          100: '#d1fae5',
-          200: '#a7f3d0',
-          300: '#6ee7b7',
-          400: '#34d399',
-          500: '#10B981', // Emerald Green Primary
-          600: '#059669', // Hover Emerald
-          700: '#047857', // Dark Emerald
-          800: '#065f46',
-          900: '#064e3b',
-          950: '#022c22',
-          DEFAULT: '#10B981',
+        sage: {
+          50:  '#F0F5EF',
+          100: '#E3EBE2', // Pale sage panel & sidebar
+          200: '#D5DFD4',
+          300: '#C2D1C1',
+          400: '#A4B8A3',
+          DEFAULT: '#E3EBE2',
         },
         forest: {
-          950: '#05120a', // Near-black forest background
-          900: '#071a0f', // Deep dark background
-          850: '#0b2416', // Navigation bar surface
-          800: '#0f2d1c', // Main dark surface
-          750: '#133823',
-          700: '#18422b', // Card & panel surface
-          650: '#1e4d33', // Hover surface
-          600: '#255c3e', // Border & divider
-          500: '#347a55',
-          400: '#4f9b71',
+          50:  '#F2F6F3',
+          100: '#E0EAE2',
+          200: '#B8CEBD',
+          300: '#8FB198',
+          400: '#6D9578',
+          500: '#547A60', // Muted forest green Primary
+          600: '#45664F', // Hover
+          700: '#3A5643', // Active
+          800: '#2F4335',
+          900: '#26332B', // Deep charcoal green
+          DEFAULT: '#547A60',
+        },
+        charcoal: {
+          50:  '#809187',
+          100: '#5C6D63',
+          200: '#435249',
+          DEFAULT: '#26332B', // Deep charcoal green main text
+        },
+        mint: {
+          50:  '#F4F9F4',
+          100: '#E5F0E5',
+          200: '#D5E5D5', // Soft mint sent bubble
+          300: '#C0D8C0',
+          DEFAULT: '#D5E5D5',
+        },
+        brand: {
+          50:  '#F4F6F2',
+          100: '#E3EBE2',
+          200: '#D5E5D5',
+          300: '#8FB198',
+          400: '#6D9578',
+          500: '#547A60', // Primary action color
+          600: '#45664F', // Hover
+          700: '#3A5643', // Active
+          800: '#2F4335',
+          900: '#26332B',
+          DEFAULT: '#547A60',
+        },
+        primary: {
+          50:  '#F4F6F2',
+          100: '#E3EBE2',
+          200: '#D5E5D5',
+          300: '#8FB198',
+          400: '#6D9578',
+          500: '#547A60',
+          600: '#45664F',
+          700: '#3A5643',
+          800: '#2F4335',
+          900: '#26332B',
+          DEFAULT: '#547A60',
         },
         surface: {
-          DEFAULT: '#0f2d1c',   // Dark forest green main
-          darker:  '#071a0f',   // Deepest background
-          nav:     '#0b2416',   // Navigation bar
-          card:    '#18422b',   // Card / panel surface
-          input:   '#0b2416',   // Input background
-          border:  '#204e35',   // Border color
-          hover:   '#1e4d33',   // Hover state
-          light:   '#F7FDF9',   // Light theme surface
+          DEFAULT: '#F4F6F2',   // Warm off-white main
+          panel:   '#E3EBE2',   // Pale sage sidebar/panel
+          card:    '#FFFFFF',   // Clean card
+          input:   '#FFFFFF',   // Input background
+          border:  '#D8E2D7',   // Subtle border
+          hover:   '#DCE6DB',   // Hover state
         },
         content: {
-          main:  '#FFFFFF',
-          muted: '#9bb8a8',
-          dark:  '#0f2d1c',
+          main:  '#26332B',     // Deep charcoal green
+          muted: '#5C6D63',     // Muted charcoal
+          light: '#809187',
         }
       },
       fontFamily: {
@@ -83,3 +107,4 @@ export default {
   },
   plugins: [],
 };
+

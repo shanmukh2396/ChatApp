@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PrismaticBurst from '../backgrounds/PrismaticBurst';
 import ConnectHubLogo from '../common/ConnectHubLogo';
 import { ShieldCheck, Zap, Sparkles, CheckCircle2 } from 'lucide-react';
 
@@ -8,33 +7,16 @@ const AuthBrandPanel = ({ mode = 'login' }) => {
   const isLogin = mode === 'login';
 
   return (
-    <div className="relative hidden lg:flex flex-col justify-between w-1/2 p-10 xl:p-12 overflow-hidden bg-[#071a0f] text-white select-none border-r border-[#18422b]">
-      {/* ─── Animated PrismaticBurst Background (Green / Emerald Palette) ─── */}
-      <PrismaticBurst
-        color1="#042f1a"
-        color2="#059669"
-        color3="#10b981"
-        color4="#6ee7b7"
-        speed={0.3}
-        intensity={0.8}
-        rays={18.0}
-        grain={0.02}
-        mouseInfluence={0.3}
-        opacity={0.85}
-      />
-
-      {/* Dark vignette overlay for contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#071a0f]/80 via-[#071a0f]/50 to-[#071a0f]/90 pointer-events-none" />
-
+    <div className="relative hidden lg:flex flex-col justify-between w-1/2 p-6 sm:p-8 xl:p-9 bg-[#E3EBE2] text-[#26332B] select-none border-r border-[#D8E2D7]">
       {/* ─── Top Bar: Logo with CH Mark & Switch Navigation ─────────────────── */}
       <div className="relative z-10 flex items-center justify-between">
-        <ConnectHubLogo size="md" variant="dark" showTagline={false} showCHMark={true} />
+        <ConnectHubLogo size="md" variant="light" showTagline={false} showCHMark={true} />
 
-        <div className="text-xs text-slate-300 bg-[#18422b]/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 shadow-sm">
-          <span>{isLogin ? "Don't have an account?" : "Already have an account?"} </span>
+        <div className="text-xs text-[#5C6D63] bg-white/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#D8E2D7] shadow-xs">
+          <span>{isLogin ? "New here?" : "Joined us?"} </span>
           <Link
             to={isLogin ? "/signup" : "/login"}
-            className="text-[#10B981] font-bold hover:text-[#6ee7b7] transition-colors ml-1"
+            className="text-[#547A60] font-bold hover:underline ml-1"
           >
             {isLogin ? "Sign Up" : "Log In"}
           </Link>
@@ -42,84 +24,81 @@ const AuthBrandPanel = ({ mode = 'login' }) => {
       </div>
 
       {/* ─── Middle Section: Tagline & Value Props ─────────────────────────── */}
-      <div className="relative z-10 my-auto py-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#10B981]/15 border border-[#10B981]/30 text-[#a7f3d0] text-xs font-semibold mb-4">
-          <Sparkles className="w-3.5 h-3.5 text-[#10B981] animate-pulse" />
-          <span>Real-Time Messenger & WebRTC Calls</span>
+      <div className="relative z-10 my-auto py-4">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#547A60]/10 border border-[#547A60]/20 text-[#547A60] text-xs font-semibold mb-3">
+          <Sparkles className="w-3.5 h-3.5 text-[#547A60]" />
+          <span>Real-Time Messenger & WebRTC</span>
         </div>
 
-        <h1 className="text-3xl xl:text-4xl font-extrabold tracking-tight text-white leading-tight">
+        <h1 className="text-2xl xl:text-3xl font-extrabold tracking-tight text-[#26332B] leading-tight">
           Connect. Chat. <br />
-          <span className="bg-gradient-to-r from-[#10B981] via-[#34D399] to-[#A7F3D0] bg-clip-text text-transparent">
+          <span className="text-[#547A60]">
             Share Without Limits.
           </span>
         </h1>
 
-        <p className="mt-3 text-slate-300 text-sm xl:text-base leading-relaxed max-w-md">
-          Your conversations, audio/video calls, and media sharing all in one seamless place.
+        <p className="mt-2 text-[#5C6D63] text-xs sm:text-sm leading-relaxed max-w-sm">
+          A calm and pleasant messaging workspace with live messaging, media sharing, and instant voice & video calls.
         </p>
 
         {/* Feature Highlights */}
-        <div className="grid grid-cols-2 gap-3 mt-6">
-          <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-[#18422b]/70 border border-white/5 backdrop-blur-md">
-            <div className="p-2 rounded-xl bg-[#10B981]/20 text-[#10B981]">
+        <div className="grid grid-cols-2 gap-2.5 mt-4">
+          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/80 border border-[#D8E2D7] shadow-xs">
+            <div className="p-1.5 rounded-lg bg-[#E3EBE2] text-[#547A60]">
               <Zap className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-xs font-bold text-white">Live WebSockets</p>
-              <p className="text-[11px] text-[#9bb8a8]">Instant delivery</p>
+              <p className="text-xs font-bold text-[#26332B]">Live Messages</p>
+              <p className="text-[10px] text-[#5C6D63]">Instant delivery</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-[#18422b]/70 border border-white/5 backdrop-blur-md">
-            <div className="p-2 rounded-xl bg-[#10B981]/20 text-[#10B981]">
+          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/80 border border-[#D8E2D7] shadow-xs">
+            <div className="p-1.5 rounded-lg bg-[#E3EBE2] text-[#547A60]">
               <ShieldCheck className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-xs font-bold text-white">P2P Voice & Video</p>
-              <p className="text-[11px] text-[#9bb8a8]">Encrypted WebRTC</p>
+              <p className="text-xs font-bold text-[#26332B]">P2P Calling</p>
+              <p className="text-[10px] text-[#5C6D63]">Encrypted WebRTC</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ─── Bottom Decorative Profile Card ───────────────────────────────── */}
+      {/* ─── Bottom Decorative Testimonial Card ────────────────────────────── */}
       <div className="relative z-10">
-        <div className="p-4 rounded-2xl bg-[#18422b]/80 border border-white/10 backdrop-blur-xl shadow-2xl">
-          <div className="flex items-center justify-between mb-2.5">
-            <div className="flex items-center gap-3">
+        <div className="p-3.5 rounded-2xl bg-white/90 border border-[#D8E2D7] shadow-xs">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2.5">
               <div className="relative">
                 <img
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
                   alt="Elena Vasquez"
-                  className="w-10 h-10 rounded-full object-cover border-2 border-[#10B981]/60"
+                  className="w-8 h-8 rounded-full object-cover border border-[#D8E2D7]"
                 />
-                <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#071a0f] animate-pulse" />
+                <span className="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 rounded-full border border-white" />
               </div>
               <div>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-xs font-bold text-white">Elena Vasquez</span>
-                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#10B981]/20 text-[#a7f3d0]">
-                    Member
-                  </span>
+                <div className="flex items-center gap-1">
+                  <span className="text-xs font-bold text-[#26332B]">Elena Vasquez</span>
                 </div>
-                <span className="text-[11px] text-[#9bb8a8]">Product Designer</span>
+                <span className="text-[10px] text-[#5C6D63]">Product Designer</span>
               </div>
             </div>
 
-            <div className="flex items-center gap-1 text-[11px] text-emerald-400 bg-emerald-500/15 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-              <CheckCircle2 className="w-3 h-3" />
-              <span>Online Now</span>
+            <div className="flex items-center gap-1 text-[10px] text-[#547A60] bg-[#E3EBE2] px-2 py-0.5 rounded-full font-semibold border border-[#D8E2D7]">
+              <CheckCircle2 className="w-3 h-3 text-[#547A60]" />
+              <span>Online</span>
             </div>
           </div>
 
-          <p className="text-xs text-slate-300 leading-relaxed italic">
-            "ConnectHub with crystal clear voice and video calls makes team collaboration fast and effortless."
+          <p className="text-xs text-[#5C6D63] leading-relaxed italic">
+            "ConnectHub's clean interface and crystal clear calls make collaboration effortless."
           </p>
         </div>
 
-        {/* Footer info */}
-        <div className="mt-3.5 flex items-center justify-between text-[11px] text-slate-500">
+        {/* Footer copyright */}
+        <div className="mt-2.5 flex items-center justify-between text-[10px] text-[#809187]">
           <span>© 2026 ConnectHub Inc.</span>
           <span>Privacy & Terms</span>
         </div>
@@ -129,3 +108,4 @@ const AuthBrandPanel = ({ mode = 'login' }) => {
 };
 
 export default AuthBrandPanel;
+

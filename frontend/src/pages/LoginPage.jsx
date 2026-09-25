@@ -71,20 +71,20 @@ const LoginPage = () => {
     <AuthLayout mode="login">
       <div className="max-w-md mx-auto w-full">
         {/* Right Panel Header: Logo & Greeting */}
-        <div className="mb-6 sm:mb-8">
-          <div className="hidden lg:block mb-4">
-            <ConnectHubLogo size="md" variant="light" showTagline={false} showCHMark={true} />
+        <div className="mb-4 sm:mb-5">
+          <div className="hidden lg:block mb-3">
+            <ConnectHubLogo size="sm" variant="light" showTagline={false} showCHMark={true} />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#222333] tracking-tight">
-            Welcome Back!
+          <h1 className="text-xl sm:text-2xl font-extrabold text-[#26332B] tracking-tight">
+            Welcome Back
           </h1>
-          <p className="text-sm text-[#9293A5] mt-1.5 leading-relaxed">
-            Sign in to continue your conversations on ConnectHub.
+          <p className="text-xs sm:text-sm text-[#5C6D63] mt-1 leading-relaxed">
+            Sign in to continue to ConnectHub.
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5" noValidate>
           {/* Email */}
           <AuthInput
             id="email"
@@ -116,21 +116,21 @@ const LoginPage = () => {
           />
 
           {/* Remember Me */}
-          <div className="flex items-center justify-between pt-1">
-            <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-[#222333] font-medium">
+          <div className="flex items-center justify-between pt-0.5">
+            <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-[#26332B] font-medium">
               <input
                 type="checkbox"
                 name="rememberMe"
                 checked={formData.rememberMe}
                 onChange={handleChange}
-                className="w-4 h-4 text-[#10B981] rounded border-slate-300 focus:ring-[#10B981] transition"
+                className="w-3.5 h-3.5 text-[#547A60] rounded border-[#D8E2D7] focus:ring-[#547A60] transition"
               />
               <span>Remember this device</span>
             </label>
           </div>
 
           {/* Submit Button */}
-          <div className="pt-2">
+          <div className="pt-1.5">
             <AuthButton
               type="submit"
               loading={submitting}
@@ -143,12 +143,12 @@ const LoginPage = () => {
         </form>
 
         {/* Divider */}
-        <div className="relative my-6">
+        <div className="relative my-4">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-slate-200" />
+            <div className="w-full border-t border-[#D8E2D7]" />
           </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-3 text-[#9293A5] font-semibold tracking-wider">
+          <div className="relative flex justify-center text-[10px] uppercase">
+            <span className="bg-white px-2.5 text-[#809187] font-semibold tracking-wider">
               or
             </span>
           </div>
@@ -156,13 +156,13 @@ const LoginPage = () => {
 
         {/* Switch to Signup */}
         <div className="text-center">
-          <p className="text-xs sm:text-sm text-[#222333]">
+          <p className="text-xs text-[#26332B]">
             Don't have an account?{' '}
             <Link
               to="/signup"
-              className="font-bold text-[#059669] hover:text-[#047857] hover:underline inline-flex items-center gap-1 transition-colors"
+              className="font-bold text-[#547A60] hover:underline inline-flex items-center gap-1 transition-colors"
             >
-              Sign Up <ArrowRight className="w-3.5 h-3.5 inline" />
+              Sign Up <ArrowRight className="w-3 h-3 inline" />
             </Link>
           </p>
         </div>
@@ -172,3 +172,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+

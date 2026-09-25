@@ -92,19 +92,20 @@ const fragmentShader = `
 `;
 
 const PrismaticBurst = ({
-  color1 = '#042f1a', // Deep Forest Green
-  color2 = '#059669', // Rich Emerald
-  color3 = '#10b981', // Mint / Bright Emerald
-  color4 = '#6ee7b7', // Soft Mint Highlight
-  speed = 0.3,
-  intensity = 0.85,
-  rays = 16.0,
-  grain = 0.025,
-  mouseInfluence = 0.35,
-  opacity = 0.85,
+  color1 = '#547A60', // Muted forest green
+  color2 = '#E3EBE2', // Pale sage
+  color3 = '#D5E5D5', // Soft mint
+  color4 = '#F4F6F2', // Warm off-white
+  speed = 0.2,
+  intensity = 0.45,
+  rays = 12.0,
+  grain = 0.015,
+  mouseInfluence = 0.15,
+  opacity = 0.35,
   className = '',
 }) => {
   const containerRef = useRef(null);
+
 
   useEffect(() => {
     const container = containerRef.current;

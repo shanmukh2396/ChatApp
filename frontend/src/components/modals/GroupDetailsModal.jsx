@@ -68,40 +68,40 @@ const GroupDetailsModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-      <div className="w-full max-w-md bg-[#0c2417] border border-[#18422b] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/40 backdrop-blur-md animate-fade-in">
+      <div className="w-full max-w-md bg-white border border-sage-300 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-[#18422b]">
-          <h2 className="text-lg font-extrabold text-white flex items-center gap-2.5">
-            <Users className="w-5 h-5 text-[#10B981]" />
+        <div className="flex items-center justify-between p-5 border-b border-sage-200 bg-sage-100/50">
+          <h2 className="text-lg font-extrabold text-charcoal flex items-center gap-2.5">
+            <Users className="w-5 h-5 text-forest" />
             <span>Group Info</span>
           </h2>
           <button
             onClick={() => setIsGroupDetailsOpen(false)}
-            className="p-2 rounded-xl text-[#9bb8a8] hover:text-white hover:bg-[#18422b] transition-colors"
+            className="p-2 rounded-xl text-charcoal-50 hover:text-charcoal hover:bg-sage-200 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Group Profile Header */}
-        <div className="p-6 flex flex-col items-center border-b border-[#18422b] bg-[#071a0f]/60">
+        <div className="p-6 flex flex-col items-center border-b border-sage-200 bg-sage-50">
           <img
             src={activeConversation.groupAvatar}
             alt={activeConversation.name}
-            className="w-20 h-20 rounded-3xl object-cover mb-3 border-2 border-[#10B981]/50 shadow-xl"
+            className="w-20 h-20 rounded-3xl object-cover mb-3 border-2 border-forest/30 shadow-md"
           />
-          <h3 className="text-lg font-extrabold text-white text-center">
+          <h3 className="text-lg font-extrabold text-charcoal text-center">
             {activeConversation.name}
           </h3>
-          <p className="text-xs text-[#9bb8a8] mt-1 font-semibold">
+          <p className="text-xs text-charcoal-50 mt-1 font-semibold">
             {activeConversation.participants?.length || 0} active members
           </p>
         </div>
 
         {/* Members List */}
-        <div className="p-4 flex-1 overflow-y-auto">
-          <h4 className="text-xs font-bold text-[#9bb8a8] uppercase tracking-wider mb-3">
+        <div className="p-4 flex-1 overflow-y-auto bg-white">
+          <h4 className="text-xs font-bold text-charcoal-50 uppercase tracking-wider mb-3">
             Group Members
           </h4>
           <div className="space-y-2">
@@ -114,32 +114,32 @@ const GroupDetailsModal = () => {
               return (
                 <div
                   key={member._id}
-                  className="flex items-center justify-between p-3 rounded-2xl bg-[#18422b]/60 border border-white/5"
+                  className="flex items-center justify-between p-3 rounded-2xl bg-sage-50 border border-sage-200"
                 >
                   <div className="flex items-center gap-3">
                     <img
                       src={member.avatar}
                       alt={member.name}
-                      className="w-9 h-9 rounded-xl object-cover"
+                      className="w-9 h-9 rounded-xl object-cover border border-sage-300"
                     />
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-bold text-white">
+                        <span className="text-sm font-bold text-charcoal">
                           {member.name}
                         </span>
                         {isCurrentUser && (
-                          <span className="text-[10px] text-[#6ee7b7] bg-[#10B981]/20 px-2 py-0.5 rounded-md font-bold border border-[#10B981]/30">
+                          <span className="text-[10px] text-forest bg-forest/10 px-2 py-0.5 rounded-md font-bold border border-forest/20">
                             You
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-[#9bb8a8]">{member.email}</p>
+                      <p className="text-xs text-charcoal-50">{member.email}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2">
                     {memberIsAdmin && (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-400 bg-amber-950/40 px-2.5 py-1 rounded-full border border-amber-500/30">
+                      <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full border border-amber-300">
                         <ShieldCheck className="w-3 h-3" /> Admin
                       </span>
                     )}
@@ -148,7 +148,7 @@ const GroupDetailsModal = () => {
                         onClick={() => handleRemoveMember(member._id)}
                         disabled={loading}
                         title="Remove member"
-                        className="p-1.5 rounded-xl text-[#9bb8a8] hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                        className="p-1.5 rounded-xl text-charcoal-50 hover:text-red-500 hover:bg-red-50 transition-colors"
                       >
                         <UserMinus className="w-4 h-4" />
                       </button>
@@ -161,11 +161,11 @@ const GroupDetailsModal = () => {
         </div>
 
         {/* Footer Action: Leave Group */}
-        <div className="p-4 border-t border-[#18422b] bg-[#0c2417]">
+        <div className="p-4 border-t border-sage-200 bg-sage-50">
           <button
             onClick={handleLeaveGroup}
             disabled={loading}
-            className="w-full py-3 rounded-2xl bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 font-bold text-xs flex items-center justify-center gap-2 transition-all"
+            className="w-full py-3 rounded-2xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-bold text-xs flex items-center justify-center gap-2 transition-all"
           >
             <LogOut className="w-4 h-4" />
             <span>Leave Group Channel</span>
@@ -177,4 +177,3 @@ const GroupDetailsModal = () => {
 };
 
 export default GroupDetailsModal;
-
