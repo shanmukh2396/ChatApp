@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useChat } from '../../context/ChatContext';
+import { useSettings } from '../../context/SettingsContext';
 import ConversationItem from './ConversationItem';
 import ConnectHubLogo from '../common/ConnectHubLogo';
 import {
@@ -11,8 +12,7 @@ import {
   MessageSquare,
   Sparkles,
   LogOut,
-  UserPlus,
-  SlidersHorizontal,
+  Sliders,
 } from 'lucide-react';
 
 const Sidebar = ({ filterTab = 'all', setFilterTab }) => {
@@ -23,6 +23,7 @@ const Sidebar = ({ filterTab = 'all', setFilterTab }) => {
     setIsSearchOpen,
     setIsCreateGroupOpen,
   } = useChat();
+  const { isDarkMode } = useSettings();
   const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -57,17 +58,17 @@ const Sidebar = ({ filterTab = 'all', setFilterTab }) => {
   const groupCount = conversations.filter((c) => c.isGroupChat).length;
 
   return (
-    <div className="flex flex-col h-full w-full md:w-80 lg:w-96 bg-sage-100/90 backdrop-blur-xl border-r border-sage-300 shrink-0 select-none">
+    <div className="flex flex-col h-full w-full md:w-80 lg:w-96 bg-sage-100/90 dark:bg-[#162019]/95 backdrop-blur-xl border-r border-sage-300 dark:border-[#2d3f34] shrink-0 select-none transition-colors duration-200">
       {/* ─── Top Header ──────────────────────────────────────────────────── */}
-      <div className="p-4 sm:p-5 border-b border-sage-300 flex items-center justify-between bg-white/50">
+      <div className="p-4 sm:p-5 border-b border-sage-300 dark:border-[#2d3f34] flex items-center justify-between bg-white/50 dark:bg-[#1b261f]/50">
         <div className="flex items-center gap-3">
           <div className="md:hidden">
-            <ConnectHubLogo size="sm" variant="light" />
+            <ConnectHubLogo size="sm" variant={isDarkMode ? 'dark' : 'light'} />
           </div>
           <div className="hidden md:block">
-            <h2 className="text-xl font-extrabold text-charcoal tracking-tight flex items-center gap-2">
+            <h2 className="text-xl font-extrabold text-charcoal dark:text-white tracking-tight flex items-center gap-2">
               <span>Messages</span>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-forest/10 text-forest border border-forest/20 font-bold">
+              <span className="text-xs px-2 py-0.5 rounded-full bg-forest/10 dark:bg-forest/30 text-forest dark:text-[#8ba895] border border-forest/20 dark:border-forest/40 font-bold">
                 {conversations.length}
               </span>
             </h2>
@@ -85,23 +86,30 @@ const Sidebar = ({ filterTab = 'all', setFilterTab }) => {
             <span className="hidden sm:inline">New Chat</span>
           </button>
 
-          {/* Mobile Profile & Logout */}
+          {/* Mobile Profile, Settings & Logout */}
           <div className="md:hidden flex items-center gap-1">
+            <button
+              onClick={() => navigate('/settings')}
+              title="Settings"
+              className="p-2 rounded-xl text-charcoal-100 dark:text-[#8ba895] hover:text-charcoal dark:hover:text-white hover:bg-sage-200 dark:hover:bg-[#223027]"
+            >
+              <Sliders className="w-4 h-4" />
+            </button>
             <button
               onClick={() => navigate('/profile')}
               title="Profile"
-              className="p-2 rounded-xl text-charcoal-100 hover:text-charcoal hover:bg-sage-200"
+              className="p-1.5 rounded-xl text-charcoal-100 hover:text-charcoal"
             >
               <img
                 src={user?.avatar || 'https://ui-avatars.com/api/?name=User'}
                 alt={user?.name}
-                className="w-7 h-7 rounded-full object-cover border-2 border-sage-300"
+                className="w-7 h-7 rounded-full object-cover border-2 border-sage-300 dark:border-[#3a5643]"
               />
             </button>
             <button
               onClick={logout}
               title="Sign Out"
-              className="p-2 rounded-xl text-charcoal-100 hover:text-red-500"
+              className="p-2 rounded-xl text-charcoal-100 dark:text-[#8ba895] hover:text-red-500"
             >
               <LogOut className="w-4 h-4" />
             </button>
@@ -110,27 +118,27 @@ const Sidebar = ({ filterTab = 'all', setFilterTab }) => {
       </div>
 
       {/* ─── Search Bar ──────────────────────────────────────────────────── */}
-      <div className="px-4 py-3 border-b border-sage-300 bg-white/30">
+      <div className="px-4 py-3 border-b border-sage-300 dark:border-[#2d3f34] bg-white/30 dark:bg-[#1a251e]/30">
         <div className="relative">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-charcoal-50 w-4 h-4" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-charcoal-50 dark:text-[#8ba895] w-4 h-4" />
           <input
             type="text"
             placeholder="Search conversations or contacts..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white text-charcoal placeholder-charcoal-50 border border-sage-300 rounded-xl pl-10 pr-4 py-2.5 text-xs transition-all duration-200 focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20"
+            className="w-full bg-white dark:bg-[#1e2a21] text-charcoal dark:text-white placeholder-charcoal-50 dark:placeholder-[#8ba895]/60 border border-sage-300 dark:border-[#3a5643] rounded-xl pl-10 pr-4 py-2.5 text-xs transition-all duration-200 focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20"
           />
         </div>
       </div>
 
       {/* ─── Filter Tabs ─────────────────────────────────────────────────── */}
-      <div className="px-4 py-2.5 border-b border-sage-200 flex items-center gap-1.5 overflow-x-auto no-scrollbar bg-white/20">
+      <div className="px-4 py-2.5 border-b border-sage-200 dark:border-[#2d3f34] flex items-center gap-1.5 overflow-x-auto no-scrollbar bg-white/20 dark:bg-[#1a251e]/20">
         <button
           onClick={() => setActiveTab('all')}
           className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 shrink-0 ${
             activeTab === 'all'
               ? 'bg-forest text-white shadow-sm'
-              : 'text-charcoal-100 hover:text-charcoal hover:bg-sage-200'
+              : 'text-charcoal-100 dark:text-[#8ba895] hover:text-charcoal dark:hover:text-white hover:bg-sage-200 dark:hover:bg-[#223027]'
           }`}
         >
           All Chats ({conversations.length})
@@ -141,7 +149,7 @@ const Sidebar = ({ filterTab = 'all', setFilterTab }) => {
           className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 shrink-0 flex items-center gap-1.5 ${
             activeTab === 'unread'
               ? 'bg-forest text-white shadow-sm'
-              : 'text-charcoal-100 hover:text-charcoal hover:bg-sage-200'
+              : 'text-charcoal-100 dark:text-[#8ba895] hover:text-charcoal dark:hover:text-white hover:bg-sage-200 dark:hover:bg-[#223027]'
           }`}
         >
           <span>Unread</span>
@@ -157,7 +165,7 @@ const Sidebar = ({ filterTab = 'all', setFilterTab }) => {
           className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 shrink-0 flex items-center gap-1.5 ${
             activeTab === 'groups'
               ? 'bg-forest text-white shadow-sm'
-              : 'text-charcoal-100 hover:text-charcoal hover:bg-sage-200'
+              : 'text-charcoal-100 dark:text-[#8ba895] hover:text-charcoal dark:hover:text-white hover:bg-sage-200 dark:hover:bg-[#223027]'
           }`}
         >
           <span>Groups</span>
@@ -168,12 +176,12 @@ const Sidebar = ({ filterTab = 'all', setFilterTab }) => {
       {/* ─── Conversation List ────────────────────────────────────────────── */}
       <div className="flex-1 overflow-y-auto p-2.5 space-y-1">
         {loadingConversations ? (
-          <div className="py-16 flex flex-col items-center justify-center text-charcoal-50 text-xs gap-3">
+          <div className="py-16 flex flex-col items-center justify-center text-charcoal-50 dark:text-[#8ba895] text-xs gap-3">
             <div className="w-7 h-7 border-2 border-forest border-t-transparent rounded-full animate-spin" />
             <span>Loading conversations...</span>
           </div>
         ) : filteredConversations.length === 0 ? (
-          <div className="py-16 text-center text-charcoal-50 text-xs px-4">
+          <div className="py-16 text-center text-charcoal-50 dark:text-[#8ba895] text-xs px-4">
             {searchQuery ? (
               <p>No conversations matching "{searchQuery}"</p>
             ) : activeTab === 'unread' ? (
@@ -194,10 +202,10 @@ const Sidebar = ({ filterTab = 'all', setFilterTab }) => {
               </div>
             ) : (
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-sage-200 border border-sage-300 flex items-center justify-center text-forest mx-auto shadow-sm">
+                <div className="w-12 h-12 rounded-2xl bg-sage-200 dark:bg-[#223027] border border-sage-300 dark:border-[#3a5643] flex items-center justify-center text-forest dark:text-[#8ba895] mx-auto shadow-sm">
                   <MessageSquare className="w-6 h-6" />
                 </div>
-                <p className="text-charcoal font-medium">No active conversations yet.</p>
+                <p className="text-charcoal dark:text-white font-medium">No active conversations yet.</p>
                 <button
                   onClick={() => setIsSearchOpen(true)}
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-forest hover:bg-forest-600 text-white font-bold text-xs shadow-sm transition-all"

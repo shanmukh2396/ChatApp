@@ -7,6 +7,7 @@ import { AuthProvider } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
 import { ChatProvider } from './context/ChatContext';
 import { CallProvider } from './context/CallContext';
+import { SettingsProvider } from './context/SettingsContext';
 
 // Call Modals
 import IncomingCallModal from './components/call/IncomingCallModal';
@@ -19,6 +20,7 @@ import SignupPage from './pages/SignupPage';
 import RegisterPage from './pages/RegisterPage';
 import ChatDashboard from './pages/ChatDashboard';
 import ProfilePage from './pages/ProfilePage';
+import SettingsPage from './pages/SettingsPage';
 
 function App() {
   return (
@@ -49,26 +51,29 @@ function App() {
         <SocketProvider>
           <ChatProvider>
             <CallProvider>
-              {/* WebRTC Global Call Modals */}
-              <IncomingCallModal />
-              <CallModal />
+              <SettingsProvider>
+                {/* WebRTC Global Call Modals */}
+                <IncomingCallModal />
+                <CallModal />
 
-              <Routes>
-                {/* Public Auth Routes */}
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/signup" element={<SignupPage />} />
-                <Route path="/register" element={<RegisterPage />} />
+                <Routes>
+                  {/* Public Auth Routes */}
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/signup" element={<SignupPage />} />
+                  <Route path="/register" element={<RegisterPage />} />
 
-                {/* Protected App Routes */}
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/" element={<ChatDashboard />} />
-                  <Route path="/chat" element={<Navigate to="/" replace />} />
-                  <Route path="/profile" element={<ProfilePage />} />
-                </Route>
+                  {/* Protected App Routes */}
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="/" element={<ChatDashboard />} />
+                    <Route path="/chat" element={<Navigate to="/" replace />} />
+                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/settings" element={<SettingsPage />} />
+                  </Route>
 
-                {/* Fallback */}
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
+                  {/* Fallback */}
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+              </SettingsProvider>
             </CallProvider>
           </ChatProvider>
         </SocketProvider>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useSettings } from '../context/SettingsContext';
 import api from '../api/axios';
 import ConnectHubLogo from '../components/common/ConnectHubLogo';
 import PrismaticBurst from '../components/backgrounds/PrismaticBurst';
@@ -15,11 +16,13 @@ import {
   Check,
   Loader2,
   ShieldCheck,
+  Sliders,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const ProfilePage = () => {
   const { user, updateUser } = useAuth();
+  const { isDarkMode } = useSettings();
   const navigate = useNavigate();
 
   const [name, setName] = useState(user?.name || '');
@@ -97,7 +100,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-warm-100 flex flex-col items-center justify-center p-4 sm:p-6 relative overflow-hidden">
+    <div className="min-h-screen w-full bg-warm-100 dark:bg-[#121914] text-charcoal dark:text-[#E3EBE2] transition-colors duration-200 flex flex-col items-center justify-center p-4 sm:p-6 relative overflow-hidden">
       {/* ─── Animated Sage Background ────────────────────────────────────── */}
       <PrismaticBurst
         color1="#547A60"
@@ -109,33 +112,39 @@ const ProfilePage = () => {
         rays={10.0}
         grain={0.01}
         mouseInfluence={0.1}
-        opacity={0.2}
+        opacity={isDarkMode ? 0.12 : 0.2}
       />
 
-      {/* Ambient background glow */}
-      <div className="absolute top-1/4 left-1/3 w-[450px] h-[450px] bg-forest/5 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="w-full max-w-xl relative z-10 my-8">
+      <div className="w-full max-w-xl relative z-10 my-8 space-y-4">
         {/* Top Back Navigation */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/80 hover:bg-white text-charcoal-100 hover:text-charcoal border border-sage-300 text-xs font-bold transition-all shadow-sm"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/80 dark:bg-[#1c2620]/80 hover:bg-white dark:hover:bg-[#223027] text-charcoal-100 dark:text-[#8ba895] hover:text-charcoal dark:hover:text-white border border-sage-300 dark:border-[#3a5643] text-xs font-bold transition-all shadow-sm backdrop-blur-md"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Messages</span>
           </button>
 
-          <ConnectHubLogo size="sm" variant="light" showTagline={false} />
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => navigate('/settings')}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/80 dark:bg-[#1c2620]/80 hover:bg-white dark:hover:bg-[#223027] text-forest dark:text-[#8ba895] border border-sage-300 dark:border-[#3a5643] text-xs font-bold transition-all shadow-sm backdrop-blur-md"
+            >
+              <Sliders className="w-3.5 h-3.5" />
+              <span>Settings</span>
+            </button>
+            <ConnectHubLogo size="sm" variant={isDarkMode ? 'dark' : 'light'} showTagline={false} />
+          </div>
         </div>
 
         {/* Profile Card */}
-        <div className="bg-white/90 backdrop-blur-xl border border-sage-300 rounded-3xl p-6 sm:p-8 shadow-xl">
+        <div className="bg-white/90 dark:bg-[#18221b]/90 backdrop-blur-xl border border-sage-300 dark:border-[#2d3f34] rounded-3xl p-6 sm:p-8 shadow-xl">
           <div className="text-center mb-6">
-            <h1 className="text-2xl font-extrabold text-charcoal tracking-tight">
+            <h1 className="text-2xl font-extrabold text-charcoal dark:text-white tracking-tight">
               User Profile &amp; Settings
             </h1>
-            <p className="text-xs text-charcoal-50 mt-1">
+            <p className="text-xs text-charcoal-50 dark:text-[#8ba895] mt-1">
               Manage your personal information and profile appearance
             </p>
           </div>
@@ -147,9 +156,9 @@ const ProfilePage = () => {
                 <img
                   src={avatar || 'https://ui-avatars.com/api/?name=User'}
                   alt={name}
-                  className="w-24 h-24 rounded-3xl object-cover border-2 border-forest/40 shadow-md"
+                  className="w-24 h-24 rounded-3xl object-cover border-2 border-forest/40 dark:border-forest/60 shadow-md"
                 />
-                <label className="absolute inset-0 rounded-3xl bg-charcoal/50 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-xs cursor-pointer transition-opacity backdrop-blur-sm">
+                <label className="absolute inset-0 rounded-3xl bg-charcoal/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-xs cursor-pointer transition-opacity backdrop-blur-sm">
                   {uploading ? (
                     <Loader2 className="w-6 h-6 animate-spin" />
                   ) : (
@@ -167,40 +176,40 @@ const ProfilePage = () => {
                   />
                 </label>
               </div>
-              <p className="text-[11px] text-charcoal-50">Hover and click photo to upload new avatar</p>
+              <p className="text-[11px] text-charcoal-50 dark:text-[#8ba895]">Hover and click photo to upload new avatar</p>
             </div>
 
             {/* Grid: Full Name & Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Full Name */}
               <div>
-                <label className="block text-xs font-bold text-charcoal-50 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-charcoal-50 dark:text-[#8ba895] uppercase tracking-wider mb-1.5">
                   Full Name <span className="text-forest">*</span>
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 text-charcoal-50 w-4 h-4" />
+                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 text-charcoal-50 dark:text-[#8ba895] w-4 h-4" />
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-white text-charcoal border border-sage-300 rounded-xl pl-10 pr-4 py-2.5 text-xs focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20 transition-all"
+                    className="w-full bg-white dark:bg-[#1e2a21] text-charcoal dark:text-white border border-sage-300 dark:border-[#3a5643] rounded-xl pl-10 pr-4 py-2.5 text-xs focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20 transition-all"
                   />
                 </div>
               </div>
 
               {/* Email Address */}
               <div>
-                <label className="block text-xs font-bold text-charcoal-50 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-charcoal-50 dark:text-[#8ba895] uppercase tracking-wider mb-1.5">
                   Email Address
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-charcoal-50 w-4 h-4" />
+                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-charcoal-50 dark:text-[#8ba895] w-4 h-4" />
                   <input
                     type="email"
                     disabled
                     value={user?.email || ''}
-                    className="w-full bg-sage-50 text-charcoal-50 border border-sage-200 rounded-xl pl-10 pr-4 py-2.5 text-xs cursor-not-allowed"
+                    className="w-full bg-sage-50 dark:bg-[#19221b] text-charcoal-50 dark:text-[#8ba895] border border-sage-200 dark:border-[#2d3f34] rounded-xl pl-10 pr-4 py-2.5 text-xs cursor-not-allowed"
                   />
                 </div>
               </div>
@@ -210,18 +219,18 @@ const ProfilePage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Phone Number */}
               <div>
-                <label className="block text-xs font-bold text-charcoal-50 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-charcoal-50 dark:text-[#8ba895] uppercase tracking-wider mb-1.5">
                   Phone Number
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 text-charcoal-50 w-4 h-4" />
+                  <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 text-charcoal-50 dark:text-[#8ba895] w-4 h-4" />
                   <input
                     type="tel"
                     placeholder="+1 (555) 000-0000"
                     value={phoneNumber}
                     maxLength={25}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="w-full bg-white text-charcoal placeholder-charcoal-50/50 border border-sage-300 rounded-xl pl-10 pr-4 py-2.5 text-xs focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20 transition-all"
+                    className="w-full bg-white dark:bg-[#1e2a21] text-charcoal dark:text-white placeholder-charcoal-50/50 dark:placeholder-[#8ba895]/50 border border-sage-300 dark:border-[#3a5643] rounded-xl pl-10 pr-4 py-2.5 text-xs focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20 transition-all"
                   />
                 </div>
               </div>
@@ -229,20 +238,20 @@ const ProfilePage = () => {
               {/* Address */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-xs font-bold text-charcoal-50 uppercase tracking-wider">
+                  <label className="block text-xs font-bold text-charcoal-50 dark:text-[#8ba895] uppercase tracking-wider">
                     Address
                   </label>
-                  <span className="text-[10px] text-charcoal-50">{address.length}/200</span>
+                  <span className="text-[10px] text-charcoal-50 dark:text-[#8ba895]">{address.length}/200</span>
                 </div>
                 <div className="relative">
-                  <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 text-charcoal-50 w-4 h-4" />
+                  <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 text-charcoal-50 dark:text-[#8ba895] w-4 h-4" />
                   <input
                     type="text"
                     placeholder="City, Country"
                     maxLength={200}
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full bg-white text-charcoal placeholder-charcoal-50/50 border border-sage-300 rounded-xl pl-10 pr-4 py-2.5 text-xs focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20 transition-all"
+                    className="w-full bg-white dark:bg-[#1e2a21] text-charcoal dark:text-white placeholder-charcoal-50/50 dark:placeholder-[#8ba895]/50 border border-sage-300 dark:border-[#3a5643] rounded-xl pl-10 pr-4 py-2.5 text-xs focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20 transition-all"
                   />
                 </div>
               </div>
@@ -251,10 +260,10 @@ const ProfilePage = () => {
             {/* Description / About Bio */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-xs font-bold text-charcoal-50 uppercase tracking-wider">
+                <label className="block text-xs font-bold text-charcoal-50 dark:text-[#8ba895] uppercase tracking-wider">
                   About / Bio
                 </label>
-                <span className="text-[10px] text-charcoal-50">{bio.length}/300</span>
+                <span className="text-[10px] text-charcoal-50 dark:text-[#8ba895]">{bio.length}/300</span>
               </div>
               <div className="relative">
                 <textarea
@@ -263,13 +272,13 @@ const ProfilePage = () => {
                   placeholder="Share a short bio or status message..."
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
-                  className="w-full bg-white text-charcoal placeholder-charcoal-50/50 border border-sage-300 rounded-xl p-3 text-xs focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20 transition-all resize-none"
+                  className="w-full bg-white dark:bg-[#1e2a21] text-charcoal dark:text-white placeholder-charcoal-50/50 dark:placeholder-[#8ba895]/50 border border-sage-300 dark:border-[#3a5643] rounded-xl p-3 text-xs focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20 transition-all resize-none"
                 />
               </div>
             </div>
 
             {/* Privacy note */}
-            <div className="flex items-center gap-2 p-3 rounded-xl bg-sage-100 border border-sage-300 text-[11px] text-charcoal-50">
+            <div className="flex items-center gap-2 p-3 rounded-xl bg-sage-100 dark:bg-[#1e2a21] border border-sage-300 dark:border-[#3a5643] text-[11px] text-charcoal-50 dark:text-[#8ba895]">
               <ShieldCheck className="w-4 h-4 text-forest shrink-0" />
               <span>Your address is only visible on your private profile. Phone number &amp; bio are shared with contacts.</span>
             </div>

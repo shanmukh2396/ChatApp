@@ -48,6 +48,42 @@ const userSchema = new mongoose.Schema(
       trim: true,
       maxlength: [300, 'Description cannot exceed 300 characters'],
     },
+    settings: {
+      theme: {
+        type: String,
+        default: 'system',
+        enum: ['system', 'light', 'dark'],
+      },
+      chatTheme: {
+        type: String,
+        default: 'sage',
+      },
+      wallpaper: {
+        type: String,
+        default: 'default',
+      },
+      mediaQuality: {
+        type: String,
+        default: 'standard',
+        enum: ['high', 'standard', 'compressed'],
+      },
+      mediaAutoDownload: {
+        type: Boolean,
+        default: true,
+      },
+      spellCheck: {
+        type: Boolean,
+        default: true,
+      },
+      emojiShortcuts: {
+        type: Boolean,
+        default: true,
+      },
+      enterIsSend: {
+        type: Boolean,
+        default: true,
+      },
+    },
     isOnline: {
       type: Boolean,
       default: false,

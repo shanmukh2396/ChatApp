@@ -137,5 +137,26 @@
            text-[10px] font-bold rounded-full
            shadow-sm;
   }
+
+  /* Wallpaper texture backgrounds */
+  .bg-radial-dots {
+    background-image: radial-gradient(rgba(84, 122, 96, 0.12) 1.2px, transparent 1.2px);
+    background-size: 18px 18px;
+  }
+  .dark .bg-radial-dots {
+    background-image: radial-gradient(rgba(213, 229, 213, 0.1) 1.2px, transparent 1.2px);
+  }
+
+  .bg-subtle-grid {
+    background-image: 
+      linear-gradient(to right, rgba(84, 122, 96, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(84, 122, 96, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .dark .bg-subtle-grid {
+    background-image: 
+      linear-gradient(to right, rgba(213, 229, 213, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(213, 229, 213, 0.04) 1px, transparent 1px);
+  }
 }
 
